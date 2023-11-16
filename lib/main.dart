@@ -2,22 +2,22 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:project_money/presentation/blocs/blocs.dart';
+import 'package:project_money/features/entry/blocs.dart';
 import 'package:states_rebuilder/scr/state_management/rm.dart';
 
-import 'domain/models/models.dart';
-import 'domain/repositories/providers/providers.dart';
+import 'features/core/go_router.dart';
+import 'features/settings/themes/dark_theme.dart';
+import 'features/settings/themes/theme.dart';
 
-final Isar isar = Isar.openSync(
-  [
-    PersonSchema,
-    EntrySchema,
-  ],
-  directory: directory.path,
-  name: 'money',
-);
+// final Isar isar = Isar.openSync(
+//   [
+//     PersonSchema,
+//     EntrySchema,
+//   ],
+//   directory: directory.path,
+//   name: 'money',
+// );
 
 late final Directory directory;
 
