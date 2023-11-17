@@ -6,32 +6,32 @@ import 'package:states_rebuilder/states_rebuilder.dart';
 part '../settings/settings_bloc.dart';
 
 class BlocStorage implements IPersistStore {
-  late Box _sharedPreferences;
+  late Box _box;
 
   @override
   Future<void> init() async {
     await Hive.initFlutter();
-    _sharedPreferences = await Hive.openBox('default');
+    _box = await Hive.openBox('default');
   }
 
   @override
   Object? read(String key) {
-    return _sharedPreferences.get(key);
+    return _box.get(key);
   }
 
   @override
   Future<void> write<T>(String key, T value) async {
-    await _sharedPreferences.put(key, value as String);
+    await _box.put(key, value as String);
   }
 
   @override
   Future<void> delete(String key) async {
-    await _sharedPreferences.delete(key);
+    await _box.delete(key);
   }
 
   @override
   Future<void> deleteAll() async {
-    await _sharedPreferences.clear();
+    await _box.clear();
   }
 }
 

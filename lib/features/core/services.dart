@@ -29,7 +29,7 @@ SizedBox spacing([
 
 String get randomID => const Uuid().v4();
 
-extension TextX on Object? {
+extension ObjectExtensions on Object? {
   Text text({
     TextStyle? style,
     double? textScaleFactor,
@@ -42,7 +42,7 @@ extension TextX on Object? {
   }
 }
 
-extension WidgetX on Widget {
+extension WidgetExtensions on Widget {
   Widget pad({
     EdgeInsetsGeometry? customPadding,
   }) {

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
+import '../core/go_router.dart';
 import '../core/services.dart';
 
-class AddPersonScreen extends ReactiveStatelessWidget {
-  const AddPersonScreen({super.key});
+class AddPeoplePage extends ReactiveStatelessWidget {
+  const AddPeoplePage({super.key});
   @override
   void didMountWidget(BuildContext context) {
     // Future(AddPersonBloc.to.init);
@@ -15,15 +16,16 @@ class AddPersonScreen extends ReactiveStatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: 'Add Person'.text(),
+        title: 'Add People'.text(),
         automaticallyImplyLeading: false,
       ),
       body: Column(
         children: [
-          // TextFormField(
-          //   initialValue: AddPersonBloc.to.state?.name,
-          //   onChanged: AddPersonBloc.to.onNameChanged,
-          // ).pad(),
+          TextFormField(
+                  // initialValue: AddPersonBloc.to.state?.name,
+                  // onChanged: AddPersonBloc.to.onNameChanged,
+                  )
+              .pad(),
           // SwitchListTile(
           //   title:
           //       'HISTORY SHOWN: ${AddPersonBloc.to.state?.historyShown}'.text(),
@@ -38,24 +40,10 @@ class AddPersonScreen extends ReactiveStatelessWidget {
           // AddPersonBloc.to.state.text(),
         ],
       ),
-      floatingActionButton: ButtonBar(
-        children: [
-          // FloatingActionButton(
-          //   heroTag: randomID,
-          //   onPressed: AddPersonBloc.to.dispose,
-          //   child: const Icon(Icons.cancel),
-          // ),
-          // FloatingActionButton(
-          //   heroTag: randomID,
-          //   onPressed: AddPersonBloc.to.save,
-          //   child: const Icon(Icons.done),
-          // ),
-          // FloatingActionButton(
-          //   heroTag: randomID,
-          //   onPressed: navigator.back,
-          //   child: const Icon(Icons.arrow_back),
-          // ),
-        ],
+      floatingActionButton: FloatingActionButton(
+        heroTag: randomID,
+        onPressed: navigator.back,
+        child: const Icon(Icons.arrow_back),
       ),
     );
   }

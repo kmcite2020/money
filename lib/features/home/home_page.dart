@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_money/features/core/services.dart';
+import 'package:project_money/features/peoples/peoples.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 import '../core/go_router.dart';
@@ -21,20 +22,13 @@ class HomePage extends ReactiveStatelessWidget {
             crossAxisCount: 2,
             children: [
               'Total Peoples'.text(textScaleFactor: 1.5).center(),
-              "Total Loans".text(),
-
-              // Card(
-              //   child: SizedBox(
-              //     child: EntriesBloc.to.entries.length
-              //         .text(textScaleFactor: 3)
-              //         .center(),
-              //   ),
-              // ).pad(),
-              // Card(
-              //   child: PersonsBloc.to.persons.length
-              //       .text(textScaleFactor: 3)
-              //       .center(),
-              // ).pad(),
+              "Total Loans".text(textScaleFactor: 1.5).center(),
+              peoplesManager.listOfPeoples.length
+                  .text(textScaleFactor: 1.5)
+                  .center(),
+              peoplesManager.listOfPeoples.length
+                  .text(textScaleFactor: 1.5)
+                  .center(),
             ],
           ),
         ],
@@ -42,20 +36,12 @@ class HomePage extends ReactiveStatelessWidget {
       floatingActionButton: ButtonBar(
         children: [
           FloatingActionButton(
-            tooltip: 'PERSONS',
+            tooltip: 'PEOPLES',
             heroTag: randomID,
             onPressed: () {
-              navigator.to(Routes.persons);
+              navigator.to(Routes.peoples);
             },
             child: const Icon(Icons.supervised_user_circle),
-          ),
-          FloatingActionButton(
-            tooltip: 'ENTRIES',
-            heroTag: randomID,
-            onPressed: () {
-              navigator.to(Routes.entries);
-            },
-            child: const Icon(Icons.edit_note_rounded),
           ),
           FloatingActionButton(
             tooltip: 'SETTINGS',

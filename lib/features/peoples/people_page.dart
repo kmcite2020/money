@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:project_money/features/core/services.dart';
+import 'package:project_money/features/peoples/peoples.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
-class PersonScreen extends ReactiveStatelessWidget {
-  const PersonScreen({
+import '../core/go_router.dart';
+
+class PeoplePage extends ReactiveStatelessWidget {
+  const PeoplePage({
     super.key,
     required this.id,
   });
-  final int id;
+  final String id;
   @override
   Widget build(BuildContext context) {
-    // final person = People.fromJson({});
-    // final editPersonBloc = EditPersonBloc(id);
+    final people = peoplesManager.getID(id);
     return Scaffold(
       appBar: AppBar(
         // title: person!.name.text(),
@@ -18,17 +21,18 @@ class PersonScreen extends ReactiveStatelessWidget {
       ),
       body: Column(
         children: [
-          // person.name.text(textScaleFactor: 3).pad(),
-          // person.id.text(textScaleFactor: 4).pad(),
-          // if (person.editing)
-          //   TextFormField(
-          //     initialValue: person.name,
-          //     onChanged: editPersonBloc.onNameChanged,
-          //   ).pad(),
-          // if (person.historyShown!)
+          people.name.text(textScaleFactor: 3).pad(),
+          people.id.text(textScaleFactor: 4).pad(),
+          people.text().pad(),
+          if (people.editing)
+            TextFormField(
+              initialValue: people.name,
+              // onChanged: editPersonBloc.onNameChanged,
+            ).pad(),
+          // if (people.historyShown!)
           //   ...EntriesBloc.to.entries
           //       .where(
-          //         (element) => element.personId == person.id,
+          //         (element) => element.personId == people.id,
           //       )
           //       .map(
           //         (entry) => Column(
@@ -57,20 +61,26 @@ class PersonScreen extends ReactiveStatelessWidget {
           //     person.historyShown ? Icons.hide_image : Icons.shower,
           //   ),
           // ),
-          // FloatingActionButton(
-          //   heroTag: randomID,
-          //   onPressed: () => editPersonBloc.onEditingChanged(!person.editing),
-          //   child: Icon(
-          //     person.editing ? Icons.done : Icons.edit,
-          //   ),
-          // ),
-          // FloatingActionButton(
-          //   heroTag: randomID,
-          //   onPressed: navigator.back,
-          //   child: Icon(
-          //     Icons.arrow_back,
-          //   ),
-          // ),
+          FloatingActionButton(
+            heroTag: randomID,
+            onPressed: navigator.back,
+            child: Icon(
+              Icons.arrow_back,
+            ),
+          ),
+          FloatingActionButton(
+            heroTag: randomID,
+            onPressed: () {
+              peoplesManager.setPeople(
+                people.copyWith(
+                  editing: people.editing,
+                ),
+              );
+            },
+            child: Icon(
+              people.editing ? Icons.done : Icons.edit,
+            ),
+          ),
         ],
       ),
     );

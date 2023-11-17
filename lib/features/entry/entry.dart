@@ -10,5 +10,6 @@ class Entry with _$Entry {
     required final DateTime timeCreated,
   }) = _Entry;
 
+  factory Entry.init() => Entry(amount: 0, timeCreated: DateTime.now());
   factory Entry.fromJson(Map<String, dynamic> json) => _$EntryFromJson(json);
 }
