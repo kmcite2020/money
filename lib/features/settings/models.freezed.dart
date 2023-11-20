@@ -21,7 +21,8 @@ Settings _$SettingsFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Settings {
   ThemeMode get themeMode => throw _privateConstructorUsedError;
-  ThemeMode get materialColor => throw _privateConstructorUsedError;
+  @MaterialColorConverter()
+  MaterialColor get materialColor => throw _privateConstructorUsedError;
   int get pageIndex => throw _privateConstructorUsedError;
   BorderRadiusEnum get borderRadiusEnum => throw _privateConstructorUsedError;
   PaddingEnum get paddingEnum => throw _privateConstructorUsedError;
@@ -42,7 +43,7 @@ abstract class $SettingsCopyWith<$Res> {
   @useResult
   $Res call(
       {ThemeMode themeMode,
-      ThemeMode materialColor,
+      @MaterialColorConverter() MaterialColor materialColor,
       int pageIndex,
       BorderRadiusEnum borderRadiusEnum,
       PaddingEnum paddingEnum,
@@ -81,7 +82,7 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
       materialColor: null == materialColor
           ? _value.materialColor
           : materialColor // ignore: cast_nullable_to_non_nullable
-              as ThemeMode,
+              as MaterialColor,
       pageIndex: null == pageIndex
           ? _value.pageIndex
           : pageIndex // ignore: cast_nullable_to_non_nullable
@@ -120,7 +121,7 @@ abstract class _$$SettingsImplCopyWith<$Res>
   @useResult
   $Res call(
       {ThemeMode themeMode,
-      ThemeMode materialColor,
+      @MaterialColorConverter() MaterialColor materialColor,
       int pageIndex,
       BorderRadiusEnum borderRadiusEnum,
       PaddingEnum paddingEnum,
@@ -157,7 +158,7 @@ class __$$SettingsImplCopyWithImpl<$Res>
       materialColor: null == materialColor
           ? _value.materialColor
           : materialColor // ignore: cast_nullable_to_non_nullable
-              as ThemeMode,
+              as MaterialColor,
       pageIndex: null == pageIndex
           ? _value.pageIndex
           : pageIndex // ignore: cast_nullable_to_non_nullable
@@ -191,7 +192,7 @@ class __$$SettingsImplCopyWithImpl<$Res>
 class _$SettingsImpl extends _Settings {
   const _$SettingsImpl(
       {required this.themeMode,
-      required this.materialColor,
+      @MaterialColorConverter() required this.materialColor,
       required this.pageIndex,
       required this.borderRadiusEnum,
       required this.paddingEnum,
@@ -206,7 +207,8 @@ class _$SettingsImpl extends _Settings {
   @override
   final ThemeMode themeMode;
   @override
-  final ThemeMode materialColor;
+  @MaterialColorConverter()
+  final MaterialColor materialColor;
   @override
   final int pageIndex;
   @override
@@ -277,7 +279,7 @@ class _$SettingsImpl extends _Settings {
 abstract class _Settings extends Settings {
   const factory _Settings(
       {required final ThemeMode themeMode,
-      required final ThemeMode materialColor,
+      @MaterialColorConverter() required final MaterialColor materialColor,
       required final int pageIndex,
       required final BorderRadiusEnum borderRadiusEnum,
       required final PaddingEnum paddingEnum,
@@ -292,7 +294,8 @@ abstract class _Settings extends Settings {
   @override
   ThemeMode get themeMode;
   @override
-  ThemeMode get materialColor;
+  @MaterialColorConverter()
+  MaterialColor get materialColor;
   @override
   int get pageIndex;
   @override

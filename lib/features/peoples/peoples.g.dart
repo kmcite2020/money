@@ -11,9 +11,9 @@ _$PeopleImpl _$$PeopleImplFromJson(Map<String, dynamic> json) => _$PeopleImpl(
       name: json['name'] as String,
       historyShown: json['historyShown'] as bool,
       editing: json['editing'] as bool,
-      entries: (json['entries'] as List<dynamic>)
-          .map((e) => Entry.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      entries: (json['entries'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, Entry.fromJson(e as Map<String, dynamic>)),
+      ),
     );
 
 Map<String, dynamic> _$$PeopleImplToJson(_$PeopleImpl instance) =>

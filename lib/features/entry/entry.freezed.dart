@@ -20,6 +20,7 @@ Entry _$EntryFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Entry {
+  String get id => throw _privateConstructorUsedError;
   int get amount => throw _privateConstructorUsedError;
   DateTime get timeCreated => throw _privateConstructorUsedError;
 
@@ -33,7 +34,7 @@ abstract class $EntryCopyWith<$Res> {
   factory $EntryCopyWith(Entry value, $Res Function(Entry) then) =
       _$EntryCopyWithImpl<$Res, Entry>;
   @useResult
-  $Res call({int amount, DateTime timeCreated});
+  $Res call({String id, int amount, DateTime timeCreated});
 }
 
 /// @nodoc
@@ -49,10 +50,15 @@ class _$EntryCopyWithImpl<$Res, $Val extends Entry>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? amount = null,
     Object? timeCreated = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       amount: null == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
@@ -72,7 +78,7 @@ abstract class _$$EntryImplCopyWith<$Res> implements $EntryCopyWith<$Res> {
       __$$EntryImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int amount, DateTime timeCreated});
+  $Res call({String id, int amount, DateTime timeCreated});
 }
 
 /// @nodoc
@@ -86,10 +92,15 @@ class __$$EntryImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? amount = null,
     Object? timeCreated = null,
   }) {
     return _then(_$EntryImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       amount: null == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
@@ -105,11 +116,14 @@ class __$$EntryImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$EntryImpl implements _Entry {
-  const _$EntryImpl({required this.amount, required this.timeCreated});
+  const _$EntryImpl(
+      {required this.id, required this.amount, required this.timeCreated});
 
   factory _$EntryImpl.fromJson(Map<String, dynamic> json) =>
       _$$EntryImplFromJson(json);
 
+  @override
+  final String id;
   @override
   final int amount;
   @override
@@ -117,7 +131,7 @@ class _$EntryImpl implements _Entry {
 
   @override
   String toString() {
-    return 'Entry(amount: $amount, timeCreated: $timeCreated)';
+    return 'Entry(id: $id, amount: $amount, timeCreated: $timeCreated)';
   }
 
   @override
@@ -125,6 +139,7 @@ class _$EntryImpl implements _Entry {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$EntryImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.amount, amount) || other.amount == amount) &&
             (identical(other.timeCreated, timeCreated) ||
                 other.timeCreated == timeCreated));
@@ -132,7 +147,7 @@ class _$EntryImpl implements _Entry {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, amount, timeCreated);
+  int get hashCode => Object.hash(runtimeType, id, amount, timeCreated);
 
   @JsonKey(ignore: true)
   @override
@@ -150,11 +165,14 @@ class _$EntryImpl implements _Entry {
 
 abstract class _Entry implements Entry {
   const factory _Entry(
-      {required final int amount,
+      {required final String id,
+      required final int amount,
       required final DateTime timeCreated}) = _$EntryImpl;
 
   factory _Entry.fromJson(Map<String, dynamic> json) = _$EntryImpl.fromJson;
 
+  @override
+  String get id;
   @override
   int get amount;
   @override

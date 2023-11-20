@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_money/features/core/services.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
-import '../core/go_router.dart';
+import '../core/navigator.dart';
 import 'entry.dart';
 
 class EntriesScreen extends ReactiveStatelessWidget {
@@ -26,7 +26,7 @@ class EntriesScreen extends ReactiveStatelessWidget {
           FloatingActionButton(
             heroTag: randomID,
             onPressed: () {
-              navigator.to(Routes.addEntry);
+              // navigator.to(Routes.addEntry);
             },
             child: const Icon(Icons.add),
           ),

@@ -24,7 +24,7 @@ mixin _$People {
   String get name => throw _privateConstructorUsedError;
   bool get historyShown => throw _privateConstructorUsedError;
   bool get editing => throw _privateConstructorUsedError;
-  List<Entry> get entries => throw _privateConstructorUsedError;
+  Map<String, Entry> get entries => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,7 +41,7 @@ abstract class $PeopleCopyWith<$Res> {
       String name,
       bool historyShown,
       bool editing,
-      List<Entry> entries});
+      Map<String, Entry> entries});
 }
 
 /// @nodoc
@@ -83,7 +83,7 @@ class _$PeopleCopyWithImpl<$Res, $Val extends People>
       entries: null == entries
           ? _value.entries
           : entries // ignore: cast_nullable_to_non_nullable
-              as List<Entry>,
+              as Map<String, Entry>,
     ) as $Val);
   }
 }
@@ -100,7 +100,7 @@ abstract class _$$PeopleImplCopyWith<$Res> implements $PeopleCopyWith<$Res> {
       String name,
       bool historyShown,
       bool editing,
-      List<Entry> entries});
+      Map<String, Entry> entries});
 }
 
 /// @nodoc
@@ -140,7 +140,7 @@ class __$$PeopleImplCopyWithImpl<$Res>
       entries: null == entries
           ? _value._entries
           : entries // ignore: cast_nullable_to_non_nullable
-              as List<Entry>,
+              as Map<String, Entry>,
     ));
   }
 }
@@ -153,7 +153,7 @@ class _$PeopleImpl implements _People {
       required this.name,
       required this.historyShown,
       required this.editing,
-      required final List<Entry> entries})
+      required final Map<String, Entry> entries})
       : _entries = entries;
 
   factory _$PeopleImpl.fromJson(Map<String, dynamic> json) =>
@@ -167,12 +167,12 @@ class _$PeopleImpl implements _People {
   final bool historyShown;
   @override
   final bool editing;
-  final List<Entry> _entries;
+  final Map<String, Entry> _entries;
   @override
-  List<Entry> get entries {
-    if (_entries is EqualUnmodifiableListView) return _entries;
+  Map<String, Entry> get entries {
+    if (_entries is EqualUnmodifiableMapView) return _entries;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_entries);
+    return EqualUnmodifiableMapView(_entries);
   }
 
   @override
@@ -218,7 +218,7 @@ abstract class _People implements People {
       required final String name,
       required final bool historyShown,
       required final bool editing,
-      required final List<Entry> entries}) = _$PeopleImpl;
+      required final Map<String, Entry> entries}) = _$PeopleImpl;
 
   factory _People.fromJson(Map<String, dynamic> json) = _$PeopleImpl.fromJson;
 
@@ -231,7 +231,7 @@ abstract class _People implements People {
   @override
   bool get editing;
   @override
-  List<Entry> get entries;
+  Map<String, Entry> get entries;
   @override
   @JsonKey(ignore: true)
   _$$PeopleImplCopyWith<_$PeopleImpl> get copyWith =>

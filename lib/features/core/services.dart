@@ -37,6 +37,7 @@ extension ObjectExtensions on Object? {
     return Text(
       toString(),
       style: style,
+      // ignore: deprecated_member_use
       textScaleFactor: textScaleFactor,
     );
   }
@@ -48,7 +49,7 @@ extension WidgetExtensions on Widget {
   }) {
     return Builder(
       builder: (context) {
-        final padding = SettingsBloc.to.settings.padding;
+        final padding = settingsManager.settings.padding;
         return Padding(
           padding: customPadding ?? EdgeInsets.all(padding),
           child: this,

@@ -1,10 +1,6 @@
 import 'dart:convert';
-import 'dart:js';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 import '../entry/entry.dart';
@@ -19,13 +15,13 @@ class People with _$People {
     required final String name,
     required final bool historyShown,
     required final bool editing,
-    required final List<Entry> entries,
+    required final Map<String, Entry> entries,
   }) = _People;
 
   factory People.fromJson(Map<String, dynamic> json) => _$PeopleFromJson(json);
 
   factory People.id(String id) {
-    return RM.context!.watch<PeoplesManager>().getID(id);
+    return peoplesManager.getID(id);
   }
 }
 
@@ -41,10 +37,22 @@ class Peoples with _$Peoples {
 
 final PeoplesManager peoplesManager = PeoplesManager();
 
-class PeoplesManager extends HydratedCubit<Peoples> {
-  PeoplesManager() : super(Peoples(cache: {}));
-  Peoples get peoples => state;
-  set peoples(Peoples state) => emit(state);
+class PeoplesManager {
+  final peoplesRM = RM.inject(
+    () => Peoples(
+      cache: {},
+    ),
+    persist: () => PersistState(
+      key: 'peoples',
+      fromJson: (json) => Peoples.fromJson(
+        jsonDecode(json),
+      ),
+      toJson: (state) => jsonEncode(state),
+    ),
+  );
+
+  Peoples get peoples => peoplesRM.state;
+  set peoples(Peoples state) => peoplesRM.state = state;
 
   Map<String, People> get mapOfPeoples => peoples.cache;
   set mapOfPeoples(Map<String, People> _) =>
@@ -52,21 +60,13 @@ class PeoplesManager extends HydratedCubit<Peoples> {
 
   List<People> get listOfPeoples => mapOfPeoples.values.toList();
 
-  void setPeople(People people) {
-    mapOfPeoples = {...mapOfPeoples}..[people.id] = people;
-  }
+  void setPeople(People people) =>
+      mapOfPeoples = {...mapOfPeoples}..[people.id] = people;
 
-  void removePeople(People people) {
-    mapOfPeoples = {...mapOfPeoples}..remove(people.id);
-  }
+  void removePeople(People people) =>
+      mapOfPeoples = {...mapOfPeoples}..remove(people.id);
 
   People getID(String id) => listOfPeoples.firstWhere(
-        (element) => element.id == id,
+        (eachPeople) => eachPeople.id == id,
       );
-
-  @override
-  Peoples? fromJson(Map<String, dynamic> json) => Peoples.fromJson(json);
-
-  @override
-  Map<String, dynamic>? toJson(Peoples state) => state.toJson();
 }

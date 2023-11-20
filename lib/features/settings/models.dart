@@ -27,7 +27,7 @@ enum PaddingEnum {
 class Settings with _$Settings {
   const factory Settings({
     required final ThemeMode themeMode,
-    required final ThemeMode materialColor,
+    @MaterialColorConverter() required final MaterialColor materialColor,
     required final int pageIndex,
     required final BorderRadiusEnum borderRadiusEnum,
     required final PaddingEnum paddingEnum,
@@ -36,11 +36,10 @@ class Settings with _$Settings {
     required final String font,
   }) = _Settings;
 
-  factory Settings.fromJson(Map<String, dynamic> json) =>
-      _$SettingsFromJson(json);
+  factory Settings.fromJson(json) => _$SettingsFromJson(json);
   factory Settings.init() => Settings(
         themeMode: ThemeMode.system,
-        materialColor: ThemeMode.system,
+        materialColor: Colors.blue,
         pageIndex: 0,
         borderRadiusEnum: BorderRadiusEnum.full,
         paddingEnum: PaddingEnum.relaxed,
@@ -78,4 +77,14 @@ class Settings with _$Settings {
   }
 
   const Settings._();
+}
+
+class MaterialColorConverter implements JsonConverter<MaterialColor, int> {
+  const MaterialColorConverter();
+
+  @override
+  MaterialColor fromJson(int json) => Colors.primaries[json];
+
+  @override
+  int toJson(MaterialColor object) => Colors.primaries.indexOf(object);
 }

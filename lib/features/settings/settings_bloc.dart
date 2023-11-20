@@ -1,53 +1,65 @@
 part of '../../features/entry/blocs.dart';
 
-class SettingsBloc {
-  static final to = SettingsBloc();
+final SettingsManager settingsManager = SettingsManager();
+
+class SettingsManager {
   final settingsRM = RM.inject(
     () => Settings.init(),
-    // persist: () => PersistState(
-    //   key: 'settings',
-    //   fromJson: Settings.fromJson,
-    //   toJson: toJson,
-    // ),
+    persist: () => PersistState(
+      key: 'settings',
+      fromJson: (json) => Settings.fromJson(jsonDecode(json)),
+      toJson: (state) => jsonEncode(state.toJson()),
+    ),
   );
 
   Settings get settings => settingsRM.state;
-  void setSettings(Settings settings) {
-    settingsRM.state = settings;
-    settingsRM.notify();
+  void setSettings(Settings Function(Settings settings) settingsModifier) {
+    settingsRM.state = settingsModifier(settings);
   }
 
-  void setThemeMode(ThemeMode? themeMode) {
-    // setSettings(settings..themeMode = themeMode!);
+  void setThemeMode(themeMode) {
+    setSettings(
+      (settings) => settings.copyWith(themeMode: themeMode),
+    );
   }
 
   void onUseMaterial3Changed(bool useMaterial3) {
-    // setSettings(settings..useMaterial3 = useMaterial3);
+    setSettings(
+      (settings) => settings.copyWith(useMaterial3: useMaterial3),
+    );
   }
 
-  void onMaterialColorChanged(MaterialColor? materialColor) {
-    // setSettings(settings..materialColor = materialColor!);
+  void onMaterialColorChanged(materialColor) {
+    setSettings(
+      (settings) => settings.copyWith(materialColor: materialColor),
+    );
   }
 
   void onBackgroundImagePathChanged(String backgroundImagePath) {
-    // setSettings(settings..backgroundImagePath = backgroundImagePath);
+    setSettings(
+      (settings) => settings.copyWith(
+        backgroundImagePath: backgroundImagePath,
+      ),
+    );
   }
 
   void onBorderRadiusEnumChanged(BorderRadiusEnum borderRadiusEnum) {
-    // setSettings(settings..borderRadiusEnum = borderRadiusEnum);
+    setSettings(
+      (settings) => settings.copyWith(borderRadiusEnum: borderRadiusEnum),
+    );
   }
 
   void onPaddingEnumChanged(PaddingEnum paddingEnum) {
-    // setSettings(settings..paddingEnum = paddingEnum);
+    setSettings((settings) => settings.copyWith(paddingEnum: paddingEnum));
   }
 
   void onFontChanged(String font) {
-    // setSettings(settings..font = font);
+    setSettings((settings) => settings.copyWith(font: font));
   }
 
   void onPageIndexChanged(int pageIndex) {
-    // setSettings(settings..pageIndex = pageIndex);
+    setSettings((settings) => settings.copyWith(pageIndex: pageIndex));
   }
 
-  void setDefaults() => setSettings(Settings.init());
+  void setDefaults() => setSettings((_) => Settings.init());
 }

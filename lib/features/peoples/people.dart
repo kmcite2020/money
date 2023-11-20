@@ -1,12 +1,29 @@
-import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:project_money/features/peoples/peoples.dart';
+import 'package:states_rebuilder/states_rebuilder.dart';
 
 import '../entry/entry.dart';
 
-class PeopleManager extends Cubit<People?> {
-  PeopleManager(String id) : super(People.id(id));
-  set people(People? _) => emit(_);
-  People? get people => state;
+class PeopleManager {
+  PeopleManager call(People _people) {
+    people = _people;
+    return this;
+  }
+
+  final peopleRM = RM.inject<People?>(
+    () => null,
+    sideEffects: SideEffects(
+      onSetState: (snap) {
+        final people = snap.state;
+        if (people != null) {
+          peoplesManager.setPeople(people);
+        } else {
+          print('noData');
+        }
+      },
+    ),
+  );
+  set people(People? _) => peopleRM.state = _;
+  People? get people => peopleRM.state;
 
   void setEditing(value) {
     people = people?.copyWith(editing: value);
@@ -20,25 +37,19 @@ class PeopleManager extends Cubit<People?> {
     people = people?.copyWith(editing: value);
   }
 
-  List<Entry> get entries => people?.entries ?? [];
-  void setEntries(List<Entry> Function(List<Entry> entries) entriesModifier) {
-    people = people?.copyWith(entries: entriesModifier(entries));
+  Map<String, Entry> get mapOfEntries => people?.entries ?? {};
+  List<Entry> get entries => people?.entries.values.toList() ?? [];
+  void setEntries(
+      Map<String, Entry> Function(Map<String, Entry> entries) entriesModifier) {
+    people = people?.copyWith(entries: entriesModifier(mapOfEntries));
   }
 
-  void addEntry(Entry Function(Entry entry) entryModifier) {
-    setEntries(
-      (entries) => [
-        ...entries,
-        entryModifier(Entry.init()),
-      ],
-    );
+  void addEntry(Entry Function(Entry newEntry) entryModifier) {
+    final entry = entryModifier(Entry.init());
+    setEntries((entries) => Map.from(entries)..[entry.id] = entry);
   }
 
   void deleteEntry(Entry entry) {
-    setEntries(
-      (entries) => [
-        ...entries,
-      ]..remove(entry),
-    );
+    setEntries((entries) => Map.from(entries)..remove(entry.id));
   }
 }

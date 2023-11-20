@@ -9,7 +9,8 @@ part of 'models.dart';
 _$SettingsImpl _$$SettingsImplFromJson(Map<String, dynamic> json) =>
     _$SettingsImpl(
       themeMode: $enumDecode(_$ThemeModeEnumMap, json['themeMode']),
-      materialColor: $enumDecode(_$ThemeModeEnumMap, json['materialColor']),
+      materialColor:
+          const MaterialColorConverter().fromJson(json['materialColor'] as int),
       pageIndex: json['pageIndex'] as int,
       borderRadiusEnum:
           $enumDecode(_$BorderRadiusEnumEnumMap, json['borderRadiusEnum']),
@@ -22,7 +23,8 @@ _$SettingsImpl _$$SettingsImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$SettingsImplToJson(_$SettingsImpl instance) =>
     <String, dynamic>{
       'themeMode': _$ThemeModeEnumMap[instance.themeMode]!,
-      'materialColor': _$ThemeModeEnumMap[instance.materialColor]!,
+      'materialColor':
+          const MaterialColorConverter().toJson(instance.materialColor),
       'pageIndex': instance.pageIndex,
       'borderRadiusEnum': _$BorderRadiusEnumEnumMap[instance.borderRadiusEnum]!,
       'paddingEnum': _$PaddingEnumEnumMap[instance.paddingEnum]!,

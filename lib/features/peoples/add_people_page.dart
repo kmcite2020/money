@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
-import '../core/go_router.dart';
+import '../core/navigator.dart';
 import '../core/services.dart';
 
 class AddPeoplePage extends ReactiveStatelessWidget {
