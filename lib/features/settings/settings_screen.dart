@@ -133,7 +133,6 @@ class SettingsPage extends ReactiveStatelessWidget {
                     },
               child: 'Clear Image'.text(),
             ).pad(),
-            settingsManager.settings.text().pad(),
             settingsManager.settings.backgroundImage == null
                 ? 'No background imaged selected.'
                     .text()

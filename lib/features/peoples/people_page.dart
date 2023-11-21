@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:project_money/features/core/services.dart';
 import 'package:project_money/features/entry/blocs.dart';
@@ -22,7 +20,8 @@ class PeoplePage extends ReactiveStatelessWidget {
     return Material(
       child: CustomScrollView(
         slivers: [
-          SliverAppBar.medium(
+          SliverAppBar(
+            title: people.name.text(),
             actions: [
               IconButton(
                 onPressed: () {
@@ -32,62 +31,87 @@ class PeoplePage extends ReactiveStatelessWidget {
                   people.editing ? Icons.done : Icons.edit,
                 ),
               ).pad(
-                customPadding:
-                    EdgeInsets.only(right: settingsManager.settings.padding),
+                customPadding: EdgeInsets.only(
+                  right: settingsManager.settings.padding,
+                ),
               ),
             ],
           ),
-          SliverList.list(
-            children: [
-              if (people.editing)
+          if (people.editing)
+            SliverList.list(
+              children: [
                 TextFormField(
                   initialValue: people.name,
-                ).pad()
-              else
-                people.name.text(textScaleFactor: 3).pad(),
-              Divider(),
-              ...people.entries.values.map(
-                (eachEntry) {
-                  final EntryManagerForPeople entryManager =
-                      EntryManagerForPeople()(people, eachEntry);
-                  return EntryUI(
-                    key: Key(eachEntry.toString()),
-                    entry: eachEntry,
-                    onAmountChanged: entryManager.setAmount,
-                    onTimeChanged: entryManager.setDateTime,
-                    onDeleted: () => peopleManager.deleteEntry(eachEntry),
-                  );
-                },
-              ), // people.id.text(textScaleFactor: 4).pad(),
-              people.totalLoan().text(textScaleFactor: 5).pad(),
-              ElevatedButton(
-                onPressed: () {
-                  peopleManager.addEntry(
-                    (entry) => entry.copyWith(
-                      amount: Random().nextInt(9999),
-                      timeCreated: DateTime.now(),
-                    ),
-                  );
-                },
-                child: "Add Entry".text(),
-              ),
-            ],
-          ),
+                  onFieldSubmitted: peopleManager.setName,
+                  decoration: InputDecoration(
+                      labelText: 'Name - press enter to apply changes',
+                      suffix: IconButton(
+                        tooltip: 'create new entry',
+                        onPressed: () {
+                          peopleManager.setEntry(
+                            (entry) => entry.copyWith(
+                              amount: 0,
+                              timeCreated: DateTime.now(),
+                            ),
+                          );
+                        },
+                        icon: Icon(Icons.add_business),
+                      ),
+                      helperText: 'press + button to add more entries'),
+                ).pad().card(),
+                people.totalLoan().text(textScaleFactor: 5).pad().card(),
+                ...people.listOfEntries().map(
+                  (eachEntry) {
+                    return EntryUI(
+                      key: Key(eachEntry.toString()),
+                      entry: eachEntry,
+                      onAmountChanged: (amount) {
+                        peopleManager.setEntryAmount(
+                          amount!,
+                          eachEntry,
+                        );
+                      },
+                      onTimeChanged: (amount) {
+                        peopleManager.setEntryTime(
+                          amount!,
+                          eachEntry,
+                        );
+                      },
+                      onDeleted: () {
+                        peopleManager.deleteEntry(eachEntry);
+                      },
+                    ).pad().card();
+                  },
+                ), // people.id.text(textScaleFactor: 4).pad(),
+              ],
+            )
+          else
+            SliverList.list(
+              children: [
+                Wrap(
+                  children: people.listOfEntries().map(
+                    (eachEntry) {
+                      return Column(
+                        children: [
+                          eachEntry.amount.text(textScaleFactor: 1.5).pad(),
+                          eachEntry.timeCreated.date().text().pad(),
+                        ],
+                      ).card();
+                    },
+                  ).toList(),
+                ),
+              ],
+            ),
         ],
       ),
     );
   }
 }
 
-extension TotalAmount on People {
-  int totalLoan() => this.entries.values.map(
-        (e) {
-          return e.amount;
-        },
-      ).fold(
-        0,
-        (previousValue, element) => previousValue + element,
-      );
+extension DateTimeExtensions on DateTime {
+  String date() => "$day/$month/$year";
+  String time() => "$hour:$minute";
+  String datetime() => date() + ' ' + time();
 }
 
 class EntryUI extends ReactiveStatelessWidget {
@@ -103,76 +127,34 @@ class EntryUI extends ReactiveStatelessWidget {
   final ValueChanged<DateTime?>? onTimeChanged;
   final VoidCallback? onDeleted;
 
-  Widget _dateTime(DateTime dateTime) {
-    return Column(
-      children: [
-        "${dateTime.day}-${dateTime.month}-${dateTime.year}".text(),
-        "${dateTime.hour}:${dateTime.minute}:${dateTime.second}".text(),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        entry.amount.text(),
-        _dateTime(entry.timeCreated),
-        TextFormField(
-          initialValue: entry.amount.toString(),
-          keyboardType: TextInputType.number,
-          onChanged: (str) => onAmountChanged?.call(int.tryParse(str)),
-        ).pad(),
-        ElevatedButton(
+    return TextFormField(
+      initialValue: entry.amount.toString(),
+      keyboardType: TextInputType.number,
+      decoration: InputDecoration(
+        labelText: 'Amount - press enter to apply changes',
+        helperText: entry.timeCreated.date(),
+        prefixIcon: IconButton(
           onPressed: () async {
             final dateTime = await showDatePicker(
               context: context,
               firstDate: DateTime(1950),
               lastDate: DateTime.now(),
+              initialDate: entry.timeCreated,
             );
             onTimeChanged?.call(dateTime);
           },
-          child: 'Change DateTime'.text(),
-        ).pad(),
-        IconButton(
+          icon: Icon(Icons.update),
+        ),
+        suffixIcon: IconButton(
           onPressed: onDeleted,
           icon: Icon(Icons.delete),
         ),
-        Divider(),
-      ],
-    );
-  }
-}
-
-typedef PeopleEntry = ({People? people, Entry? entry});
-
-class EntryManagerForPeople {
-  final peopleEntryRM = RM.inject<PeopleEntry>(
-    () => (
-      people: null,
-      entry: null,
-    ),
-  );
-  People? get people => peopleEntryRM.state.people;
-  setPeople(People people) {
-    peoplesManager.setPeople(people);
-  }
-
-  Entry? get entry => peopleEntryRM.state.entry;
-
-  EntryManagerForPeople call(People? people, Entry? entry) {
-    peopleEntryRM.state = (
-      people: people,
-      entry: entry,
-    );
-    return this;
-  }
-
-  void setAmount(int? amount) {
-    call(people, entry?.copyWith(amount: amount ?? 0));
-  }
-
-  void setDateTime(DateTime? dateTime) {
-    call(people, entry?.copyWith(timeCreated: dateTime!));
+      ),
+      onFieldSubmitted: (str) => onAmountChanged?.call(
+        int.tryParse(str),
+      ),
+    ).pad();
   }
 }

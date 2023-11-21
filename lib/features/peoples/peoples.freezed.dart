@@ -24,7 +24,7 @@ mixin _$People {
   String get name => throw _privateConstructorUsedError;
   bool get historyShown => throw _privateConstructorUsedError;
   bool get editing => throw _privateConstructorUsedError;
-  Map<String, Entry> get entries => throw _privateConstructorUsedError;
+  Map<String, Entry> get mapOfEntries => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,7 +41,7 @@ abstract class $PeopleCopyWith<$Res> {
       String name,
       bool historyShown,
       bool editing,
-      Map<String, Entry> entries});
+      Map<String, Entry> mapOfEntries});
 }
 
 /// @nodoc
@@ -61,7 +61,7 @@ class _$PeopleCopyWithImpl<$Res, $Val extends People>
     Object? name = null,
     Object? historyShown = null,
     Object? editing = null,
-    Object? entries = null,
+    Object? mapOfEntries = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -80,9 +80,9 @@ class _$PeopleCopyWithImpl<$Res, $Val extends People>
           ? _value.editing
           : editing // ignore: cast_nullable_to_non_nullable
               as bool,
-      entries: null == entries
-          ? _value.entries
-          : entries // ignore: cast_nullable_to_non_nullable
+      mapOfEntries: null == mapOfEntries
+          ? _value.mapOfEntries
+          : mapOfEntries // ignore: cast_nullable_to_non_nullable
               as Map<String, Entry>,
     ) as $Val);
   }
@@ -100,7 +100,7 @@ abstract class _$$PeopleImplCopyWith<$Res> implements $PeopleCopyWith<$Res> {
       String name,
       bool historyShown,
       bool editing,
-      Map<String, Entry> entries});
+      Map<String, Entry> mapOfEntries});
 }
 
 /// @nodoc
@@ -118,7 +118,7 @@ class __$$PeopleImplCopyWithImpl<$Res>
     Object? name = null,
     Object? historyShown = null,
     Object? editing = null,
-    Object? entries = null,
+    Object? mapOfEntries = null,
   }) {
     return _then(_$PeopleImpl(
       id: null == id
@@ -137,9 +137,9 @@ class __$$PeopleImplCopyWithImpl<$Res>
           ? _value.editing
           : editing // ignore: cast_nullable_to_non_nullable
               as bool,
-      entries: null == entries
-          ? _value._entries
-          : entries // ignore: cast_nullable_to_non_nullable
+      mapOfEntries: null == mapOfEntries
+          ? _value._mapOfEntries
+          : mapOfEntries // ignore: cast_nullable_to_non_nullable
               as Map<String, Entry>,
     ));
   }
@@ -147,14 +147,15 @@ class __$$PeopleImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PeopleImpl implements _People {
+class _$PeopleImpl extends _People {
   const _$PeopleImpl(
       {required this.id,
       required this.name,
       required this.historyShown,
       required this.editing,
-      required final Map<String, Entry> entries})
-      : _entries = entries;
+      required final Map<String, Entry> mapOfEntries})
+      : _mapOfEntries = mapOfEntries,
+        super._();
 
   factory _$PeopleImpl.fromJson(Map<String, dynamic> json) =>
       _$$PeopleImplFromJson(json);
@@ -167,17 +168,17 @@ class _$PeopleImpl implements _People {
   final bool historyShown;
   @override
   final bool editing;
-  final Map<String, Entry> _entries;
+  final Map<String, Entry> _mapOfEntries;
   @override
-  Map<String, Entry> get entries {
-    if (_entries is EqualUnmodifiableMapView) return _entries;
+  Map<String, Entry> get mapOfEntries {
+    if (_mapOfEntries is EqualUnmodifiableMapView) return _mapOfEntries;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_entries);
+    return EqualUnmodifiableMapView(_mapOfEntries);
   }
 
   @override
   String toString() {
-    return 'People(id: $id, name: $name, historyShown: $historyShown, editing: $editing, entries: $entries)';
+    return 'People(id: $id, name: $name, historyShown: $historyShown, editing: $editing, mapOfEntries: $mapOfEntries)';
   }
 
   @override
@@ -190,13 +191,14 @@ class _$PeopleImpl implements _People {
             (identical(other.historyShown, historyShown) ||
                 other.historyShown == historyShown) &&
             (identical(other.editing, editing) || other.editing == editing) &&
-            const DeepCollectionEquality().equals(other._entries, _entries));
+            const DeepCollectionEquality()
+                .equals(other._mapOfEntries, _mapOfEntries));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, historyShown, editing,
-      const DeepCollectionEquality().hash(_entries));
+      const DeepCollectionEquality().hash(_mapOfEntries));
 
   @JsonKey(ignore: true)
   @override
@@ -212,13 +214,14 @@ class _$PeopleImpl implements _People {
   }
 }
 
-abstract class _People implements People {
+abstract class _People extends People {
   const factory _People(
       {required final String id,
       required final String name,
       required final bool historyShown,
       required final bool editing,
-      required final Map<String, Entry> entries}) = _$PeopleImpl;
+      required final Map<String, Entry> mapOfEntries}) = _$PeopleImpl;
+  const _People._() : super._();
 
   factory _People.fromJson(Map<String, dynamic> json) = _$PeopleImpl.fromJson;
 
@@ -231,7 +234,7 @@ abstract class _People implements People {
   @override
   bool get editing;
   @override
-  Map<String, Entry> get entries;
+  Map<String, Entry> get mapOfEntries;
   @override
   @JsonKey(ignore: true)
   _$$PeopleImplCopyWith<_$PeopleImpl> get copyWith =>
@@ -317,9 +320,10 @@ class __$$PeoplesImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PeoplesImpl implements _Peoples {
+class _$PeoplesImpl extends _Peoples {
   const _$PeoplesImpl({required final Map<String, People> cache})
-      : _cache = cache;
+      : _cache = cache,
+        super._();
 
   factory _$PeoplesImpl.fromJson(Map<String, dynamic> json) =>
       _$$PeoplesImplFromJson(json);
@@ -364,9 +368,10 @@ class _$PeoplesImpl implements _Peoples {
   }
 }
 
-abstract class _Peoples implements Peoples {
+abstract class _Peoples extends Peoples {
   const factory _Peoples({required final Map<String, People> cache}) =
       _$PeoplesImpl;
+  const _Peoples._() : super._();
 
   factory _Peoples.fromJson(Map<String, dynamic> json) = _$PeoplesImpl.fromJson;
 

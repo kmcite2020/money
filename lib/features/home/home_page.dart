@@ -9,43 +9,28 @@ class DashboardPage extends ReactiveStatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        SliverAppBar(
-          title: 'MONEY'.text(),
-        ),
-        SliverGrid.count(
-          crossAxisCount: 2,
-          children: [
-            FloatingActionButton(
-              // tooltip: 'PEOPLES',
-              heroTag: randomID,
-              onPressed: () {
-                // navigator.to(Routes.peoples);
-              },
-              child: loanIcon,
-            ).pad(),
-            FloatingActionButton(
-              tooltip: 'SETTINGS',
-              heroTag: randomID,
-              onPressed: () {
-                // navigator.to(Routes.settings);
-              },
-              child: const Icon(Icons.settings),
-            ).pad(),
-          ],
-        ),
-        SliverGrid.count(
-          crossAxisCount: 2,
-          children: [
-            'Total Peoples'.text(textScaleFactor: 1.5).center(),
-            "Total Loans".text(textScaleFactor: 1.5).center(),
-            peoplesManager.listOfPeoples.length
-                .text(textScaleFactor: 1.5)
-                .center(),
-            peoplesManager.listOfPeoples.length
-                .text(textScaleFactor: 1.5)
-                .center(),
+    return Stack(
+      children: [
+        Opacity(opacity: .1, child: loanIcon.center()),
+        CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              title: 'MONEY'.text(),
+            ),
+            SliverList.list(
+              children: [
+                'Peoples'.text(textScaleFactor: 1.5).pad(),
+                peoplesManager.peoples.length
+                    .text(textScaleFactor: 5)
+                    .pad()
+                    .card(),
+                "Loans".text(textScaleFactor: 1.5).pad(),
+                peoplesManager.peoples.totalLoans
+                    .text(textScaleFactor: 3)
+                    .pad()
+                    .card(),
+              ],
+            ),
           ],
         ),
       ],

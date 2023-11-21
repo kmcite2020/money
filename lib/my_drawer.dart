@@ -30,10 +30,10 @@ class MyDrawer extends ReactiveStatelessWidget {
             icon: Icon(Icons.settings),
             label: 'Settings'.text(),
           ),
-          NavigationDrawerDestination(
-            icon: Icon(Icons.people),
-            label: 'Peoples'.text(),
-          ),
+          // NavigationDrawerDestination(
+          //   icon: Icon(Icons.people),
+          //   label: 'Peoples'.text(),
+          // ),
         ],
       ),
     );

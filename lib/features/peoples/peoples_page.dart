@@ -4,7 +4,6 @@ import 'package:states_rebuilder/states_rebuilder.dart';
 
 import '../core/navigator.dart';
 import '../core/services.dart';
-import 'people.dart';
 import 'peoples.dart';
 
 class PeoplesPage extends ReactiveStatelessWidget {
@@ -22,13 +21,7 @@ class PeoplesPage extends ReactiveStatelessWidget {
             ElevatedButton(
               onPressed: () {
                 peoplesManager.setPeople(
-                  People(
-                    id: randomID,
-                    name: '',
-                    historyShown: true,
-                    editing: false,
-                    entries: {},
-                  ),
+                  People.init(),
                 );
               },
               child: 'Add New People'.text(),
@@ -39,24 +32,9 @@ class PeoplesPage extends ReactiveStatelessWidget {
           itemCount: peoplesManager.mapOfPeoples.length,
           itemBuilder: (context, index) {
             final _people = peoplesManager.listOfPeoples[index];
-            final PeopleManager peopleManager = PeopleManager()(_people);
             return ListTile(
-              title: Column(
-                children: [
-                  if (_people.editing)
-                    TextFormField(
-                      initialValue: _people.name,
-                      onChanged: peopleManager.setName,
-                    ).pad()
-                  else
-                    _people.name.text(textScaleFactor: 2.5).pad(),
-                  _people.totalLoan().text(textScaleFactor: 3).pad(),
-                  Switch(
-                    value: _people.editing,
-                    onChanged: peopleManager.setEditing,
-                  )
-                ],
-              ),
+              title: _people.name.text(textScaleFactor: 2.0).pad(),
+              subtitle: _people.totalLoan().text(textScaleFactor: 3).pad(),
               onTap: () => navigator.to(PeoplePage(id: _people.id)),
             );
           },

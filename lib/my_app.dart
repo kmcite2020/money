@@ -1,15 +1,12 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:project_money/features/core/services.dart';
 import 'package:project_money/features/peoples/peoples_page.dart';
 import 'package:project_money/features/settings/settings_screen.dart';
+import 'package:project_money/features/settings/themes/themes.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 import 'features/entry/blocs.dart';
 import 'features/home/home_page.dart';
-import 'features/settings/themes/dark_theme.dart';
-import 'features/settings/themes/theme.dart';
 import 'my_drawer.dart';
 
 class MyApp extends ReactiveStatelessWidget {
@@ -26,14 +23,13 @@ class MyApp extends ReactiveStatelessWidget {
             DashboardPage(),
             PeoplesPage(),
             SettingsPage(),
-            SettingsPage(),
           ],
         ),
       ),
       debugShowCheckedModeBanner: false,
-      theme: theme(),
-      darkTheme: darkTheme(),
-      themeMode: settingsManager.settings.themeMode,
+      theme: themes.theme(),
+      darkTheme: themes.darkTheme(),
+      themeMode: themes.themeMode(),
     );
   }
 
@@ -43,13 +39,13 @@ class MyApp extends ReactiveStatelessWidget {
 
 Widget get loanIcon {
   final brightness = Theme.of(RM.context!).brightness;
-
+  final color = settingsManager.settings.materialColor;
   return Image.asset(
     'assets/loan.png',
     colorBlendMode: BlendMode.srcIn,
     color: switch (brightness) {
-      Brightness.dark => Colors.white70,
-      Brightness.light => Colors.black54,
+      Brightness.dark => color.shade700,
+      Brightness.light => color.shade200,
     },
   ).pad();
 }

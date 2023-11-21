@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:project_money/features/core/services.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 import '../entry/entry.dart';
@@ -15,13 +16,36 @@ class People with _$People {
     required final String name,
     required final bool historyShown,
     required final bool editing,
-    required final Map<String, Entry> entries,
+    required final Map<String, Entry> mapOfEntries,
   }) = _People;
-
+  const People._();
+  List<Entry> listOfEntries() => mapOfEntries.values.toList();
   factory People.fromJson(Map<String, dynamic> json) => _$PeopleFromJson(json);
-
   factory People.id(String id) {
     return peoplesManager.getID(id);
+  }
+  factory People.init() {
+    return People(
+      id: randomID,
+      name: '',
+      historyShown: false,
+      editing: false,
+      mapOfEntries: {},
+    );
+  }
+  Entry entryByID(String id) =>
+      listOfEntries().firstWhere((eachEntry) => eachEntry.id == id);
+  int totalLoan() {
+    return listOfEntries().map(
+      (e) {
+        return e.amount;
+      },
+    ).fold(
+      0,
+      (previousValue, element) {
+        return previousValue + element;
+      },
+    );
   }
 }
 
@@ -30,6 +54,23 @@ class Peoples with _$Peoples {
   const factory Peoples({
     required final Map<String, People> cache,
   }) = _Peoples;
+  const Peoples._();
+  int get totalLoans {
+    return cache.values.fold(
+      0,
+      (previousValue, element) {
+        return element.listOfEntries().fold(
+              0,
+              (previousValue, element) {
+                return element.amount + previousValue;
+              },
+            ) +
+            previousValue;
+      },
+    );
+  }
+
+  int get length => cache.length;
 
   factory Peoples.fromJson(Map<String, dynamic> json) =>
       _$PeoplesFromJson(json);

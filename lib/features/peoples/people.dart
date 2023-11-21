@@ -37,16 +37,26 @@ class PeopleManager {
     people = people?.copyWith(editing: value);
   }
 
-  Map<String, Entry> get mapOfEntries => people?.entries ?? {};
-  List<Entry> get entries => people?.entries.values.toList() ?? [];
+  Map<String, Entry> get mapOfEntries => people?.mapOfEntries ?? {};
+  List<Entry> get entries => people?.listOfEntries() ?? [];
   void setEntries(
       Map<String, Entry> Function(Map<String, Entry> entries) entriesModifier) {
-    people = people?.copyWith(entries: entriesModifier(mapOfEntries));
+    people = people?.copyWith(mapOfEntries: entriesModifier(mapOfEntries));
   }
 
-  void addEntry(Entry Function(Entry newEntry) entryModifier) {
-    final entry = entryModifier(Entry.init());
-    setEntries((entries) => Map.from(entries)..[entry.id] = entry);
+  void setEntry(Entry Function(Entry entry) entryModifier) {
+    final cache = entryModifier(Entry.init());
+    setEntries(
+      (entries) => Map.from(entries)..[cache.id] = cache,
+    );
+  }
+
+  void setEntryAmount(int amount, Entry entry) {
+    setEntry((_) => entry.copyWith(amount: amount));
+  }
+
+  void setEntryTime(DateTime dateTime, Entry entry) {
+    setEntry((_) => entry.copyWith(timeCreated: dateTime));
   }
 
   void deleteEntry(Entry entry) {
