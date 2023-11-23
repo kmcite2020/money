@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_money/features/core/services.dart';
 import 'package:project_money/features/peoples/peoples.dart';
-import 'package:project_money/my_app.dart';
+import 'package:project_money/features/my_app.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 class DashboardPage extends ReactiveStatelessWidget {

@@ -5,9 +5,8 @@ import 'package:project_money/features/settings/settings_screen.dart';
 import 'package:project_money/features/settings/themes/themes.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
-import 'features/entry/blocs.dart';
-import 'features/home/home_page.dart';
-import 'my_drawer.dart';
+import 'entry/blocs.dart';
+import 'home/home_page.dart';
 
 class MyApp extends ReactiveStatelessWidget {
   const MyApp({super.key});
@@ -49,3 +48,40 @@ Widget get loanIcon {
     },
   ).pad();
 }
+
+class MyDrawer extends ReactiveStatelessWidget {
+  const MyDrawer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: NavigationDrawer(
+        onDestinationSelected: (int index) {
+          onPageIndexChanged(index);
+          RM.navigate.back();
+        },
+        selectedIndex: pageIndex,
+        children: [
+          "Money".text(textScaleFactor: 3).pad(),
+          loanIcon,
+          NavigationDrawerDestination(
+            icon: Icon(Icons.dashboard),
+            label: 'Dashboard'.text(),
+          ),
+          NavigationDrawerDestination(
+            icon: Icon(Icons.people),
+            label: 'Peoples'.text(),
+          ),
+          NavigationDrawerDestination(
+            icon: Icon(Icons.settings),
+            label: 'Settings'.text(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+final pageIndexRM = RM.inject(() => 0, autoDisposeWhenNotUsed: false);
+int get pageIndex => pageIndexRM.state;
+void onPageIndexChanged(int index) => pageIndexRM.state = index;

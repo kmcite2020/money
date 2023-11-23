@@ -12,23 +12,23 @@ class Themes {
 
   ThemeData theme() {
     return FlexThemeData.light(
-      fontFamily: font(),
+      fontFamily: fontFamily(settingsManager.settings.font),
       useMaterial3: settingsManager.settings.useMaterial3,
       appBarStyle: FlexAppBarStyle.primary,
+      subThemesData: FlexSubThemesData(
+        defaultRadius: settingsManager.settings.borderRadius,
+      ),
     );
   }
 
   ThemeData darkTheme() {
     return FlexThemeData.dark(
-      fontFamily: font(),
+      fontFamily: fontFamily(settingsManager.settings.font),
       useMaterial3: settingsManager.settings.useMaterial3,
       appBarStyle: FlexAppBarStyle.primary,
+      subThemesData: FlexSubThemesData(
+        defaultRadius: settingsManager.settings.borderRadius,
+      ),
     );
-  }
-}
-
-extension ThemesExtensions on Themes {
-  String? font() {
-    return fontFamily(settingsManager.settings.font);
   }
 }

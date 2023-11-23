@@ -12,7 +12,7 @@ class BlocStorage implements IPersistStore {
   @override
   Future<void> init() async {
     await Hive.initFlutter();
-    _box = await Hive.openBox('default');
+    _box = await Hive.openBox('project_money');
   }
 
   @override

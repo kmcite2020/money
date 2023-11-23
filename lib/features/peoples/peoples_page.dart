@@ -36,6 +36,12 @@ class PeoplesPage extends ReactiveStatelessWidget {
               title: _people.name.text(textScaleFactor: 2.0).pad(),
               subtitle: _people.totalLoan().text(textScaleFactor: 3).pad(),
               onTap: () => navigator.to(PeoplePage(id: _people.id)),
+              trailing: IconButton(
+                onPressed: () {
+                  peoplesManager.removePeople(_people);
+                },
+                icon: Icon(Icons.delete),
+              ),
             );
           },
         ),
