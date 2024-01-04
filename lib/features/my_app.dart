@@ -1,12 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:project_money/features/core/services.dart';
-import 'package:project_money/features/peoples/peoples_page.dart';
-import 'package:project_money/features/settings/settings_screen.dart';
-import 'package:project_money/features/settings/themes/themes.dart';
-import 'package:states_rebuilder/states_rebuilder.dart';
-
-import 'entry/blocs.dart';
-import 'home/home_page.dart';
+import '../main.dart';
 
 class MyApp extends ReactiveStatelessWidget {
   const MyApp({super.key});

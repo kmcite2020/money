@@ -1,4 +1,4 @@
-part of '../../features/entry/blocs.dart';
+import '../../main.dart';
 
 final SettingsManager settingsManager = SettingsManager();
 

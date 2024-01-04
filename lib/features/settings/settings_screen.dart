@@ -1,11 +1,4 @@
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
-import 'package:project_money/features/core/services.dart';
-import 'package:states_rebuilder/states_rebuilder.dart';
-import 'package:colornames/colornames.dart';
-import '../entry/blocs.dart';
-import 'models.dart';
-import 'themes/font_family.dart';
+import '../../main.dart';
 
 class SettingsPage extends ReactiveStatelessWidget {
   const SettingsPage({super.key});

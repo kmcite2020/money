@@ -1,6 +1,4 @@
-import 'dart:developer';
-
-import 'package:google_fonts/google_fonts.dart';
+import '../../../main.dart';
 
 String? fontFamily(String font) {
   try {

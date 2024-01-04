@@ -1,10 +1,4 @@
-import 'dart:convert';
-
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:project_money/features/core/services.dart';
-import 'package:states_rebuilder/states_rebuilder.dart';
-
-import '../entry/entry.dart';
+import '../../main.dart';
 
 part 'peoples.freezed.dart';
 part 'peoples.g.dart';

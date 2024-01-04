@@ -1,5 +1,4 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:project_money/features/core/services.dart';
+import '../../main.dart';
 
 part 'entry.g.dart';
 part 'entry.freezed.dart';

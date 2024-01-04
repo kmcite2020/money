@@ -1,7 +1,4 @@
-import 'package:project_money/features/peoples/peoples.dart';
-import 'package:states_rebuilder/states_rebuilder.dart';
-
-import '../entry/entry.dart';
+import '../../main.dart';
 
 class PeopleManager {
   PeopleManager call(People _people) {

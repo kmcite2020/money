@@ -1,10 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:project_money/features/peoples/people_page.dart';
-import 'package:states_rebuilder/states_rebuilder.dart';
-
-import '../core/navigator.dart';
-import '../core/services.dart';
-import 'peoples.dart';
+import '../../main.dart';
 
 class PeoplesPage extends ReactiveStatelessWidget {
   const PeoplesPage({super.key});

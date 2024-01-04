@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:project_money/features/core/services.dart';
-import 'package:states_rebuilder/states_rebuilder.dart';
+import '../../main.dart';
 
 class AddEntryScreen extends ReactiveStatelessWidget {
   const AddEntryScreen({super.key});

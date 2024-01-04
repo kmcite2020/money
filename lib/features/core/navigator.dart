@@ -1,4 +1,4 @@
-import 'package:states_rebuilder/states_rebuilder.dart';
+import '../../main.dart';
 
 final navigator = RM.navigate;
 

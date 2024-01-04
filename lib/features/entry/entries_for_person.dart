@@ -1,4 +1,3 @@
-part of '../../../features/core/providers.dart';
 
 // List<Entry> entriesForPerson(int id) {
 //   return EntriesBloc.to.entries
