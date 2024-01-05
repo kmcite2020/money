@@ -9,11 +9,12 @@ class TransactionsManager {
       toJson: (state) => jsonEncode(state.toJson()),
     ),
   );
-  Transaction getByID(int id) => state.cache[id] ?? Transaction.invalid();
+  Transaction getByID(String id) =>
+      state.cache[id] ?? Transaction().copyWith(transactionID: '');
   int get length => state.cache.length;
   List<Transaction> get transactions => state.cache.values.toList();
 
-  List<Transaction> getTransactionByPersonID(int id) => transactions
+  List<Transaction> getTransactionsByPersonID(String id) => transactions
       .where(
         (element) => element.personID == id,
       )
@@ -27,7 +28,7 @@ class TransactionsManager {
     );
   }
 
-  void removeTransaction(int id) {
+  void removeTransaction(String id) {
     state = state.copyWith(
       cache: Map.of(state.cache)..remove(id),
     );

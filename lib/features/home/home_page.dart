@@ -1,3 +1,5 @@
+import 'package:money/features/persons/components/create_person_dialog.dart';
+
 import '../../main.dart';
 
 class HomePage extends UI {
@@ -85,7 +87,7 @@ class HomePage extends UI {
                       IconButton(
                         onPressed: () {
                           transactionsManager.addTransaction(
-                            Transaction.create(),
+                            Transaction(),
                           );
                         },
                         icon: Icon(
@@ -93,17 +95,7 @@ class HomePage extends UI {
                           size: 50,
                         ),
                       ).pad(),
-                      IconButton(
-                        onPressed: () {
-                          personsManager.addPerson(
-                            Person.create(),
-                          );
-                        },
-                        icon: Icon(
-                          Icons.people,
-                          size: 50,
-                        ),
-                      ).pad(),
+                      CreatePersonDialogUI(),
                       IconButton(
                         onPressed: () {},
                         icon: Icon(
@@ -129,7 +121,7 @@ class HomePage extends UI {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            personsManager.addPerson(Person.create());
+            personsManager.addPerson(Person());
           },
         ),
       );

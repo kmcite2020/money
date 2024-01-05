@@ -5,7 +5,7 @@ class TransactionPage extends UI {
     Key? key,
     required this.id,
   }) : super(key: key);
-  final int id;
+  final String id;
   @override
   Widget build(BuildContext context) {
     return TransactionBuilder(
@@ -14,9 +14,9 @@ class TransactionPage extends UI {
         return Scaffold(
           appBar: AppBar(
             title: transaction.person.name.text(),
-            backgroundColor: transaction.isPersonInvalid
-                ? Colors.red
-                : settingsManager.settings.materialColor,
+            backgroundColor: transaction.isPersonValid
+                ? settingsManager.settings.materialColor
+                : Colors.red,
             actions: [
               IconButton(
                 onPressed: () {
@@ -35,7 +35,7 @@ class TransactionPage extends UI {
           body: ListView(
             children: [
               'Transaction ID'.text(textScaleFactor: 2).pad(),
-              transaction.transactionID.text(textScaleFactor: 3).pad(),
+              transaction.transactionID.text().pad(),
               Divider(height: 0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -44,7 +44,7 @@ class TransactionPage extends UI {
                   Row(
                     children: [
                       IconButton(
-                        onPressed: transaction.isPersonInvalid
+                        onPressed: transaction.isPersonValid
                             ? null
                             : () {
                                 navigator.to(

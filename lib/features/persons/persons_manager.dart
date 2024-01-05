@@ -9,8 +9,9 @@ class PersonsManager {
       toJson: (state) => jsonEncode(state.toJson()),
     ),
   );
-  Person getByID(int id) => state.cache[id] ?? Person.invalid();
-  int get length => state.cache.length + 1;
+  Person getByID(String id) =>
+      state.cache[id] ?? Person().copyWith(personID: '');
+  int get length => state.cache.length;
   List<Person> get persons => state.cache.values.toList();
 
   Persons get state => personsRM.state;
@@ -22,7 +23,7 @@ class PersonsManager {
     );
   }
 
-  void removePerson(int id) {
+  void removePerson(String id) {
     state = state.copyWith(
       cache: Map.of(state.cache)..remove(id),
     );

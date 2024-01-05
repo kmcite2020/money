@@ -4,7 +4,7 @@ class PersonPage extends UI {
   const PersonPage({
     required this.id,
   });
-  final int id;
+  final String id;
   @override
   Widget build(BuildContext context) {
     return PersonBuilder(
@@ -14,19 +14,27 @@ class PersonPage extends UI {
           appBar: AppBar(),
           body: Column(
             children: [
-              person.personID.text(textScaleFactor: 4),
+              '${person.editing ? 'EDIT' : 'READ'} '.text().pad(),
+              'ID'.text().pad(),
+              person.personID.text().pad(),
               person.name.text(textScaleFactor: 5),
               TextFormField(
                 initialValue: person.name,
                 onChanged: (value) {
-                  personsManager.addPerson(person.copyWith(name: value));
+                  personsManager.addPerson(
+                    person.copyWith(name: value),
+                  );
                 },
-                onFieldSubmitted: (value) {},
+                onFieldSubmitted: (value) {
+                  personsManager.addPerson(
+                    person.copyWith(editing: !person.editing),
+                  );
+                },
               ).pad(),
               IconButton(
                 onPressed: () {
                   transactionsManager.addTransaction(
-                    Transaction.create().copyWith(personID: id),
+                    Transaction().copyWith(personID: id),
                   );
                 },
                 icon: Icon(
@@ -35,7 +43,7 @@ class PersonPage extends UI {
               ),
               Wrap(
                 children: transactionsManager
-                    .getTransactionByPersonID(id)
+                    .getTransactionsByPersonID(id)
                     .map(
                       (e) => Chip(
                         label: e.amount.text(),

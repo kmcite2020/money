@@ -5,18 +5,15 @@ part 'models.g.dart';
 
 @freezed
 class Person with _$Person {
-  const factory Person.valid({
-    required final int personID,
+  const factory Person.raw({
+    required final String personID,
     required final String name,
+    @Default(false) final bool editing,
     required final DateTime created,
-  }) = PersonValid;
-  const factory Person.invalid({
-    @Default(-1) final int personID,
-    @Default('Invalid') final String name,
-  }) = PersonInvalid;
+  }) = _Person;
   const Person._();
-  static Person create() => Person.valid(
-        personID: personsManager.length + 1,
+  factory Person() => Person.raw(
+        personID: randomID,
         name: '',
         created: DateTime.now(),
       );
@@ -26,7 +23,7 @@ class Person with _$Person {
 @freezed
 class Transactions with _$Transactions {
   const factory Transactions({
-    @Default(<int, Transaction>{}) final Map<int, Transaction> cache,
+    @Default(<String, Transaction>{}) final Map<String, Transaction> cache,
   }) = _Transactions;
   const Transactions._();
   int get balance => cache.values.fold(
@@ -39,7 +36,7 @@ class Transactions with _$Transactions {
 @freezed
 class Persons with _$Persons {
   const factory Persons({
-    @Default(<int, Person>{}) final Map<int, Person> cache,
+    @Default(<String, Person>{}) final Map<String, Person> cache,
   }) = _Persons;
 
   factory Persons.fromJson(json) => _$PersonsFromJson(json);
@@ -47,34 +44,36 @@ class Persons with _$Persons {
 
 @freezed
 class Transaction with _$Transaction {
-  const factory Transaction.valid({
-    @Default(-1) final int transactionID,
-    @Default(-1) final int personID,
+  const factory Transaction.raw({
+    @Default('') final String transactionID,
+    @Default('') final String personID,
     @Default(0) final int amount,
     @Default('VALID') final String notes,
     @Default(false) final bool editing,
     required final DateTime created,
-  }) = TransactionValid;
-  const factory Transaction.invalid({
-    @Default(-1) final int transactionID,
-    @Default(-1) final int personID,
-    @Default(0) final int amount,
-    @Default('INVALID') final String notes,
-    @Default(false) final bool editing,
-  }) = TransactionInvalid;
-  factory Transaction.create() => Transaction.valid(
-        transactionID: transactionsManager.length + 1,
+  }) = _Transaction;
+  factory Transaction() => Transaction.raw(
+        transactionID: randomID,
         created: DateTime.now(),
       );
 
   const Transaction._();
   Person get person => personsManager.getByID(this.personID);
-  bool get isPersonInvalid {
+  bool get isPersonValid {
     switch (personID) {
-      case -1:
-        return true;
-      default:
+      case '': // '' is invalid id
         return false;
+      default:
+        return true;
+    }
+  }
+
+  bool get isValid {
+    switch (transactionID) {
+      case '': // '' is invalid id
+        return false;
+      default:
+        return true;
     }
   }
 
