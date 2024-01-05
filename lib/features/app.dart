@@ -1,22 +1,12 @@
 import '../main.dart';
 
-class MyApp extends ReactiveStatelessWidget {
-  const MyApp({super.key});
+class App extends UI {
+  const App({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: RM.navigate.navigatorKey,
-      home: Scaffold(
-        drawer: MyDrawer(),
-        body: IndexedStack(
-          index: pageIndex,
-          children: [
-            DashboardPage(),
-            PeoplesPage(),
-            SettingsPage(),
-          ],
-        ),
-      ),
+      home: HomePage(),
       debugShowCheckedModeBanner: false,
       theme: themes.theme(),
       darkTheme: themes.darkTheme(),
@@ -41,7 +31,7 @@ Widget get loanIcon {
   ).pad();
 }
 
-class MyDrawer extends ReactiveStatelessWidget {
+class MyDrawer extends UI {
   const MyDrawer({super.key});
 
   @override

@@ -189,7 +189,7 @@ class __$$SettingsImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$SettingsImpl extends _Settings {
+class _$SettingsImpl extends _Settings with DiagnosticableTreeMixin {
   const _$SettingsImpl(
       {required this.themeMode,
       @MaterialColorConverter() required this.materialColor,
@@ -223,8 +223,23 @@ class _$SettingsImpl extends _Settings {
   final String font;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'Settings(themeMode: $themeMode, materialColor: $materialColor, pageIndex: $pageIndex, borderRadiusEnum: $borderRadiusEnum, paddingEnum: $paddingEnum, backgroundImagePath: $backgroundImagePath, useMaterial3: $useMaterial3, font: $font)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'Settings'))
+      ..add(DiagnosticsProperty('themeMode', themeMode))
+      ..add(DiagnosticsProperty('materialColor', materialColor))
+      ..add(DiagnosticsProperty('pageIndex', pageIndex))
+      ..add(DiagnosticsProperty('borderRadiusEnum', borderRadiusEnum))
+      ..add(DiagnosticsProperty('paddingEnum', paddingEnum))
+      ..add(DiagnosticsProperty('backgroundImagePath', backgroundImagePath))
+      ..add(DiagnosticsProperty('useMaterial3', useMaterial3))
+      ..add(DiagnosticsProperty('font', font));
   }
 
   @override

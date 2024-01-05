@@ -1,6 +1,6 @@
 import '../../../main.dart';
 
-Themes get themes => Themes();
+final themes = Themes();
 
 class Themes {
   ThemeMode themeMode() {
@@ -10,6 +10,9 @@ class Themes {
   ThemeData theme() {
     return FlexThemeData.light(
       fontFamily: fontFamily(settingsManager.settings.font),
+      colorScheme: ColorScheme.fromSwatch(
+        primarySwatch: settingsManager.settings.materialColor,
+      ),
       useMaterial3: settingsManager.settings.useMaterial3,
       appBarStyle: FlexAppBarStyle.primary,
       subThemesData: FlexSubThemesData(
@@ -21,6 +24,10 @@ class Themes {
   ThemeData darkTheme() {
     return FlexThemeData.dark(
       fontFamily: fontFamily(settingsManager.settings.font),
+      colorScheme: ColorScheme.fromSwatch(
+        primarySwatch: settingsManager.settings.materialColor,
+        brightness: Brightness.dark,
+      ),
       useMaterial3: settingsManager.settings.useMaterial3,
       appBarStyle: FlexAppBarStyle.primary,
       subThemesData: FlexSubThemesData(

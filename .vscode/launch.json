@@ -4,19 +4,20 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
-            "name": "project_money",
+            "name": "Money",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "project_money (profile mode)",
+            "name": "Money (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "project_money (release mode)",
+            "name": "Money (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
