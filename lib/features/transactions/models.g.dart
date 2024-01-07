@@ -49,8 +49,8 @@ Map<String, dynamic> _$$PersonsImplToJson(_$PersonsImpl instance) =>
 
 _$TransactionImpl _$$TransactionImplFromJson(Map<String, dynamic> json) =>
     _$TransactionImpl(
-      transactionID: json['transactionID'] as String? ?? '',
-      personID: json['personID'] as String? ?? '',
+      transactionID: json['transactionID'] as String,
+      personID: json['personID'] as String?,
       amount: json['amount'] as int? ?? 0,
       notes: json['notes'] as String? ?? 'VALID',
       editing: json['editing'] as bool? ?? false,

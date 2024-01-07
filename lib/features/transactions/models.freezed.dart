@@ -629,28 +629,28 @@ Transaction _$TransactionFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Transaction {
   String get transactionID => throw _privateConstructorUsedError;
-  String get personID => throw _privateConstructorUsedError;
+  String? get personID => throw _privateConstructorUsedError;
   int get amount => throw _privateConstructorUsedError;
   String get notes => throw _privateConstructorUsedError;
   bool get editing => throw _privateConstructorUsedError;
   DateTime get created => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String transactionID, String personID, int amount,
-            String notes, bool editing, DateTime created)
+    required TResult Function(String transactionID, String? personID,
+            int amount, String notes, bool editing, DateTime created)
         raw,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String transactionID, String personID, int amount,
+    TResult? Function(String transactionID, String? personID, int amount,
             String notes, bool editing, DateTime created)?
         raw,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String transactionID, String personID, int amount,
+    TResult Function(String transactionID, String? personID, int amount,
             String notes, bool editing, DateTime created)?
         raw,
     required TResult orElse(),
@@ -686,7 +686,7 @@ abstract class $TransactionCopyWith<$Res> {
   @useResult
   $Res call(
       {String transactionID,
-      String personID,
+      String? personID,
       int amount,
       String notes,
       bool editing,
@@ -707,7 +707,7 @@ class _$TransactionCopyWithImpl<$Res, $Val extends Transaction>
   @override
   $Res call({
     Object? transactionID = null,
-    Object? personID = null,
+    Object? personID = freezed,
     Object? amount = null,
     Object? notes = null,
     Object? editing = null,
@@ -718,10 +718,10 @@ class _$TransactionCopyWithImpl<$Res, $Val extends Transaction>
           ? _value.transactionID
           : transactionID // ignore: cast_nullable_to_non_nullable
               as String,
-      personID: null == personID
+      personID: freezed == personID
           ? _value.personID
           : personID // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       amount: null == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
@@ -752,7 +752,7 @@ abstract class _$$TransactionImplCopyWith<$Res>
   @useResult
   $Res call(
       {String transactionID,
-      String personID,
+      String? personID,
       int amount,
       String notes,
       bool editing,
@@ -771,7 +771,7 @@ class __$$TransactionImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? transactionID = null,
-    Object? personID = null,
+    Object? personID = freezed,
     Object? amount = null,
     Object? notes = null,
     Object? editing = null,
@@ -782,10 +782,10 @@ class __$$TransactionImplCopyWithImpl<$Res>
           ? _value.transactionID
           : transactionID // ignore: cast_nullable_to_non_nullable
               as String,
-      personID: null == personID
+      personID: freezed == personID
           ? _value.personID
           : personID // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       amount: null == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
@@ -810,8 +810,8 @@ class __$$TransactionImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TransactionImpl extends _Transaction with DiagnosticableTreeMixin {
   const _$TransactionImpl(
-      {this.transactionID = '',
-      this.personID = '',
+      {required this.transactionID,
+      this.personID,
       this.amount = 0,
       this.notes = 'VALID',
       this.editing = false,
@@ -822,11 +822,9 @@ class _$TransactionImpl extends _Transaction with DiagnosticableTreeMixin {
       _$$TransactionImplFromJson(json);
 
   @override
-  @JsonKey()
   final String transactionID;
   @override
-  @JsonKey()
-  final String personID;
+  final String? personID;
   @override
   @JsonKey()
   final int amount;
@@ -886,8 +884,8 @@ class _$TransactionImpl extends _Transaction with DiagnosticableTreeMixin {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String transactionID, String personID, int amount,
-            String notes, bool editing, DateTime created)
+    required TResult Function(String transactionID, String? personID,
+            int amount, String notes, bool editing, DateTime created)
         raw,
   }) {
     return raw(transactionID, personID, amount, notes, editing, created);
@@ -896,7 +894,7 @@ class _$TransactionImpl extends _Transaction with DiagnosticableTreeMixin {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String transactionID, String personID, int amount,
+    TResult? Function(String transactionID, String? personID, int amount,
             String notes, bool editing, DateTime created)?
         raw,
   }) {
@@ -906,7 +904,7 @@ class _$TransactionImpl extends _Transaction with DiagnosticableTreeMixin {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String transactionID, String personID, int amount,
+    TResult Function(String transactionID, String? personID, int amount,
             String notes, bool editing, DateTime created)?
         raw,
     required TResult orElse(),
@@ -955,8 +953,8 @@ class _$TransactionImpl extends _Transaction with DiagnosticableTreeMixin {
 
 abstract class _Transaction extends Transaction {
   const factory _Transaction(
-      {final String transactionID,
-      final String personID,
+      {required final String transactionID,
+      final String? personID,
       final int amount,
       final String notes,
       final bool editing,
@@ -969,7 +967,7 @@ abstract class _Transaction extends Transaction {
   @override
   String get transactionID;
   @override
-  String get personID;
+  String? get personID;
   @override
   int get amount;
   @override

@@ -17,6 +17,19 @@ class Person with _$Person {
         name: '',
         created: DateTime.now(),
       );
+  int get amount => transactionsManager.transactions
+      .where(
+        (element) => element.personID == personID,
+      )
+      .fold(
+        0,
+        (
+          previousValue,
+          element,
+        ) =>
+            previousValue + element.amount,
+      );
+
   factory Person.fromJson(json) => _$PersonFromJson(json);
 }
 
@@ -27,6 +40,22 @@ class Transactions with _$Transactions {
   }) = _Transactions;
   const Transactions._();
   int get balance => cache.values.fold(
+        0,
+        (previousValue, element) => previousValue + element.amount,
+      );
+  int get toGet => cache.values
+      .where(
+        (element) => element.amount.isNegative,
+      )
+      .fold(
+        0,
+        (previousValue, element) => previousValue + element.amount,
+      );
+  int get toGive => cache.values
+      .where(
+        (element) => !element.amount.isNegative,
+      )
+      .fold(
         0,
         (previousValue, element) => previousValue + element.amount,
       );
@@ -45,8 +74,8 @@ class Persons with _$Persons {
 @freezed
 class Transaction with _$Transaction {
   const factory Transaction.raw({
-    @Default('') final String transactionID,
-    @Default('') final String personID,
+    required final String transactionID,
+    final String? personID,
     @Default(0) final int amount,
     @Default('VALID') final String notes,
     @Default(false) final bool editing,
@@ -61,6 +90,7 @@ class Transaction with _$Transaction {
   Person get person => personsManager.getByID(this.personID);
   bool get isPersonValid {
     switch (personID) {
+      case null: // null is invalid id
       case '': // '' is invalid id
         return false;
       default:

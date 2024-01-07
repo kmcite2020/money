@@ -1,4 +1,5 @@
 import 'package:money/features/persons/components/create_person_dialog.dart';
+import 'package:money/features/transactions/components/create_transaction_dialog.dart';
 
 import '../../main.dart';
 
@@ -12,7 +13,7 @@ class HomePage extends UI {
         ),
         body: Stack(
           children: [
-            Opacity(opacity: .1, child: loanIcon.center()),
+            // Opacity(opacity: .1, child: loanIcon.center()),
             Column(
               children: [
                 Column(
@@ -26,7 +27,7 @@ class HomePage extends UI {
                             return ElevatedButton(
                               onLongPress: () =>
                                   transactionsManager.removeTransaction(
-                                eachTransaction.personID,
+                                eachTransaction.personID!,
                               ),
                               onPressed: () {
                                 navigator.to(
@@ -78,23 +79,17 @@ class HomePage extends UI {
                     ),
                   ],
                 ).card(),
-                'Net Balance'.text(),
+                'balance'.text(),
                 transactionsManager.state.balance.text(textScaleFactor: 4),
+                'to give'.text(),
+                transactionsManager.state.toGive.text(textScaleFactor: 4),
+                'to get'.text(),
+                transactionsManager.state.toGet.text(textScaleFactor: 4),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      IconButton(
-                        onPressed: () {
-                          transactionsManager.addTransaction(
-                            Transaction(),
-                          );
-                        },
-                        icon: Icon(
-                          Icons.create_new_folder,
-                          size: 50,
-                        ),
-                      ).pad(),
+                      CreateTransactionDialogUI(),
                       CreatePersonDialogUI(),
                       IconButton(
                         onPressed: () {},
@@ -102,7 +97,7 @@ class HomePage extends UI {
                           Icons.vaccines,
                           size: 50,
                         ),
-                      ).pad(),
+                      ),
                       IconButton(
                         onPressed: () {
                           navigator.to(SettingsPage());
@@ -111,18 +106,13 @@ class HomePage extends UI {
                           Icons.settings,
                           size: 50,
                         ),
-                      ).pad(),
+                      )
                     ],
                   ),
                 )
               ],
             ),
           ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            personsManager.addPerson(Person());
-          },
         ),
       );
 }

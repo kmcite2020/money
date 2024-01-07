@@ -9,7 +9,7 @@ class PersonsManager {
       toJson: (state) => jsonEncode(state.toJson()),
     ),
   );
-  Person getByID(String id) =>
+  Person getByID(String? id) =>
       state.cache[id] ?? Person().copyWith(personID: '');
   int get length => state.cache.length;
   List<Person> get persons => state.cache.values.toList();

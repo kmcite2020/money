@@ -13,7 +13,18 @@ class PersonBuilder extends UI {
     final person = personsManager.getByID(id);
     switch (person.personID) {
       case '':
-        return 'Invalid Person'.text();
+        return Scaffold(
+          body: GestureDetector(
+            onTap: () => navigator.back(),
+            child: '$id not found'
+                .text(
+                  textScaleFactor: 1.5,
+                )
+                .pad()
+                .center()
+                .card(),
+          ),
+        );
       default:
         return builder(person);
     }

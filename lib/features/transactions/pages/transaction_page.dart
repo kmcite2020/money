@@ -1,10 +1,7 @@
 import '../../../main.dart';
 
 class TransactionPage extends UI {
-  const TransactionPage({
-    Key? key,
-    required this.id,
-  }) : super(key: key);
+  const TransactionPage({required this.id});
   final String id;
   @override
   Widget build(BuildContext context) {
@@ -18,6 +15,14 @@ class TransactionPage extends UI {
                 ? settingsManager.settings.materialColor
                 : Colors.red,
             actions: [
+              IconButton(
+                onPressed: () async {
+                  await Future.delayed(17.milliseconds);
+                  transactionsManager
+                      .removeTransaction(transaction.transactionID);
+                },
+                icon: Icon(Icons.delete),
+              ),
               IconButton(
                 onPressed: () {
                   transactionsManager.addTransaction(
@@ -34,6 +39,9 @@ class TransactionPage extends UI {
           ),
           body: ListView(
             children: [
+              'DATED'.text(textScaleFactor: 2).pad(),
+              transaction.created.datetime().text().pad(),
+              Divider(height: 0),
               'Transaction ID'.text(textScaleFactor: 2).pad(),
               transaction.transactionID.text().pad(),
               Divider(height: 0),
@@ -44,13 +52,14 @@ class TransactionPage extends UI {
                   Row(
                     children: [
                       IconButton(
+                        tooltip: 'Goto person details',
                         onPressed: transaction.isPersonValid
-                            ? null
-                            : () {
+                            ? () {
                                 navigator.to(
-                                  PersonPage(id: transaction.personID),
+                                  PersonPage(id: transaction.personID!),
                                 );
-                              },
+                              }
+                            : null,
                         icon: Icon(Icons.read_more),
                       ).pad(),
                       PopupMenuButton(
@@ -91,7 +100,7 @@ class TransactionPage extends UI {
               if (transaction.editing)
                 TextFormField(
                   initialValue: transaction.amount.toString(),
-                  onFieldSubmitted: (value) {
+                  onChanged: (value) {
                     final val = int.tryParse(value);
                     if (val == null) return;
                     transactionsManager.addTransaction(

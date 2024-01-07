@@ -36,7 +36,13 @@ void main() async {
   GoogleFonts.config.allowRuntimeFetching = false;
   // await RM.deleteAllPersistState();
   await RM.storageInitializer(HiveStorage());
+  await denormalize();
   runApp(
     App(),
   );
+}
+
+Future<void> denormalize() async {
+  print('denormalization started');
+  print('denormalization completed');
 }

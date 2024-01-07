@@ -10,28 +10,48 @@ class PersonPage extends UI {
     return PersonBuilder(
       id: id,
       builder: (Person person) {
+        final transactions = transactionsManager.getTransactionsByPersonID(id);
+        transactions.sort(
+          (a, b) => a.created.compareTo(b.created),
+        );
         return Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            actions: [
+              IconButton(
+                onPressed: () {
+                  personsManager
+                      .addPerson(person.copyWith(editing: !person.editing));
+                },
+                icon: Icon(person.editing ? Icons.done : Icons.edit),
+              ),
+            ],
+          ),
           body: Column(
             children: [
-              '${person.editing ? 'EDIT' : 'READ'} '.text().pad(),
-              'ID'.text().pad(),
-              person.personID.text().pad(),
-              person.name.text(textScaleFactor: 5),
-              TextFormField(
-                initialValue: person.name,
-                onChanged: (value) {
-                  personsManager.addPerson(
-                    person.copyWith(name: value),
-                  );
-                },
-                onFieldSubmitted: (value) {
-                  personsManager.addPerson(
-                    person.copyWith(editing: !person.editing),
-                  );
-                },
-              ).pad(),
-              IconButton(
+              'ID'.text(textScaleFactor: 2).pad(),
+              person.personID.text().center(),
+              if (person.editing)
+                TextFormField(
+                  initialValue: person.name,
+                  onChanged: (value) {
+                    personsManager.addPerson(
+                      person.copyWith(name: value),
+                    );
+                  },
+                  onFieldSubmitted: (value) {
+                    personsManager.addPerson(
+                      person.copyWith(editing: !person.editing),
+                    );
+                  },
+                  decoration: InputDecoration(labelText: 'NAME'),
+                ).pad()
+              else ...[
+                'NAME'.text(textScaleFactor: 2),
+                person.name.text(textScaleFactor: 1.5).pad(),
+              ],
+              'AMOUNT'.text(textScaleFactor: 2),
+              person.amount.text(textScaleFactor: 1.5).pad(),
+              IconButton.outlined(
                 onPressed: () {
                   transactionsManager.addTransaction(
                     Transaction().copyWith(personID: id),
@@ -42,11 +62,17 @@ class PersonPage extends UI {
                 ),
               ),
               Wrap(
-                children: transactionsManager
-                    .getTransactionsByPersonID(id)
+                children: transactions
                     .map(
-                      (e) => Chip(
+                      (e) => InputChip(
+                        onPressed: () {
+                          navigator.to(
+                            TransactionPage(id: e.transactionID),
+                          );
+                        },
                         label: e.amount.text(),
+                      ).pad(
+                        customPadding: EdgeInsets.all(4),
                       ),
                     )
                     .toList(),

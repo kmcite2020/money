@@ -18,3 +18,25 @@ class TransactionBuilder extends UI {
     }
   }
 }
+
+class ReactiveBuilder<T> extends UI {
+  const ReactiveBuilder({
+    Key? key,
+    required this.cache,
+    required this.id,
+    required this.builder,
+  }) : super(key: key);
+  final String id;
+  final Map<String, T> cache;
+  final Widget Function(T t) builder;
+  @override
+  Widget build(context) {
+    final t = cache[id];
+
+    if (t != null) {
+      return builder(t);
+    } else {
+      return '$id not found'.text();
+    }
+  }
+}

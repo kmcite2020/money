@@ -96,44 +96,44 @@ class SettingsPage extends UI {
               labelText: 'Border Radius',
             ),
           ).pad(),
-          ElevatedButton(
-            onPressed: () async {
-              final fpr = await FilePicker.platform.pickFiles();
-              if (fpr != null) {
-                final image = fpr.files.first;
-                final path = image.path;
-                if (path != null) {
-                  settingsManager.onBackgroundImagePathChanged(path);
-                }
-              }
-            },
-            child: 'Set Background Image'.text(),
-          ).pad(),
-          ElevatedButton(
-            onPressed: settingsManager.settings == Settings.init()
-                ? null
-                : () {
-                    settingsManager.setDefaults();
-                  },
-            child: 'Delete Configs'.text(),
-          ).pad(),
-          ElevatedButton(
-            onPressed: settingsManager.settings.backgroundImage == null
-                ? null
-                : () {
-                    settingsManager.onBackgroundImagePathChanged('');
-                  },
-            child: 'Clear Image'.text(),
-          ).pad(),
-          settingsManager.settings.backgroundImage == null
-              ? 'No background imaged selected.'
-                  .text()
-                  .pad()
-                  .center()
-                  .pad()
-                  .card()
-                  .pad()
-              : Image.memory(settingsManager.settings.backgroundImage!).pad()
+          // ElevatedButton(
+          //   onPressed: () async {
+          //     final fpr = await FilePicker.platform.pickFiles();
+          //     if (fpr != null) {
+          //       final image = fpr.files.first;
+          //       final path = image.path;
+          //       if (path != null) {
+          //         settingsManager.onBackgroundImagePathChanged(path);
+          //       }
+          //     }
+          //   },
+          //   child: 'Set Background Image'.text(),
+          // ).pad(),
+          // ElevatedButton(
+          //   onPressed: settingsManager.settings == Settings.init()
+          //       ? null
+          //       : () {
+          //           settingsManager.setDefaults();
+          //         },
+          //   child: 'Delete Configs'.text(),
+          // ).pad(),
+          // ElevatedButton(
+          //   onPressed: settingsManager.settings.backgroundImage == null
+          //       ? null
+          //       : () {
+          //           settingsManager.onBackgroundImagePathChanged('');
+          //         },
+          //   child: 'Clear Image'.text(),
+          // ).pad(),
+          // settingsManager.settings.backgroundImage == null
+          //     ? 'No background imaged selected.'
+          //         .text()
+          //         .pad()
+          //         .center()
+          //         .pad()
+          //         .card()
+          //         .pad()
+          //     : Image.memory(settingsManager.settings.backgroundImage!).pad()
         ],
       ),
     );
