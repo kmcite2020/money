@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'models.dart';
+part of 'settings.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -29,7 +29,65 @@ mixin _$Settings {
   String? get backgroundImagePath => throw _privateConstructorUsedError;
   bool get useMaterial3 => throw _privateConstructorUsedError;
   String get font => throw _privateConstructorUsedError;
-
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            ThemeMode themeMode,
+            @MaterialColorConverter() MaterialColor materialColor,
+            int pageIndex,
+            BorderRadiusEnum borderRadiusEnum,
+            PaddingEnum paddingEnum,
+            String? backgroundImagePath,
+            bool useMaterial3,
+            String font)
+        get,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+            ThemeMode themeMode,
+            @MaterialColorConverter() MaterialColor materialColor,
+            int pageIndex,
+            BorderRadiusEnum borderRadiusEnum,
+            PaddingEnum paddingEnum,
+            String? backgroundImagePath,
+            bool useMaterial3,
+            String font)?
+        get,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            ThemeMode themeMode,
+            @MaterialColorConverter() MaterialColor materialColor,
+            int pageIndex,
+            BorderRadiusEnum borderRadiusEnum,
+            PaddingEnum paddingEnum,
+            String? backgroundImagePath,
+            bool useMaterial3,
+            String font)?
+        get,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Settings value) get,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Settings value)? get,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Settings value)? get,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $SettingsCopyWith<Settings> get copyWith =>
@@ -224,14 +282,14 @@ class _$SettingsImpl extends _Settings with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Settings(themeMode: $themeMode, materialColor: $materialColor, pageIndex: $pageIndex, borderRadiusEnum: $borderRadiusEnum, paddingEnum: $paddingEnum, backgroundImagePath: $backgroundImagePath, useMaterial3: $useMaterial3, font: $font)';
+    return 'Settings.get(themeMode: $themeMode, materialColor: $materialColor, pageIndex: $pageIndex, borderRadiusEnum: $borderRadiusEnum, paddingEnum: $paddingEnum, backgroundImagePath: $backgroundImagePath, useMaterial3: $useMaterial3, font: $font)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'Settings'))
+      ..add(DiagnosticsProperty('type', 'Settings.get'))
       ..add(DiagnosticsProperty('themeMode', themeMode))
       ..add(DiagnosticsProperty('materialColor', materialColor))
       ..add(DiagnosticsProperty('pageIndex', pageIndex))
@@ -282,6 +340,92 @@ class _$SettingsImpl extends _Settings with DiagnosticableTreeMixin {
   @pragma('vm:prefer-inline')
   _$$SettingsImplCopyWith<_$SettingsImpl> get copyWith =>
       __$$SettingsImplCopyWithImpl<_$SettingsImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            ThemeMode themeMode,
+            @MaterialColorConverter() MaterialColor materialColor,
+            int pageIndex,
+            BorderRadiusEnum borderRadiusEnum,
+            PaddingEnum paddingEnum,
+            String? backgroundImagePath,
+            bool useMaterial3,
+            String font)
+        get,
+  }) {
+    return get(themeMode, materialColor, pageIndex, borderRadiusEnum,
+        paddingEnum, backgroundImagePath, useMaterial3, font);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+            ThemeMode themeMode,
+            @MaterialColorConverter() MaterialColor materialColor,
+            int pageIndex,
+            BorderRadiusEnum borderRadiusEnum,
+            PaddingEnum paddingEnum,
+            String? backgroundImagePath,
+            bool useMaterial3,
+            String font)?
+        get,
+  }) {
+    return get?.call(themeMode, materialColor, pageIndex, borderRadiusEnum,
+        paddingEnum, backgroundImagePath, useMaterial3, font);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            ThemeMode themeMode,
+            @MaterialColorConverter() MaterialColor materialColor,
+            int pageIndex,
+            BorderRadiusEnum borderRadiusEnum,
+            PaddingEnum paddingEnum,
+            String? backgroundImagePath,
+            bool useMaterial3,
+            String font)?
+        get,
+    required TResult orElse(),
+  }) {
+    if (get != null) {
+      return get(themeMode, materialColor, pageIndex, borderRadiusEnum,
+          paddingEnum, backgroundImagePath, useMaterial3, font);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Settings value) get,
+  }) {
+    return get(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Settings value)? get,
+  }) {
+    return get?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Settings value)? get,
+    required TResult orElse(),
+  }) {
+    if (get != null) {
+      return get(this);
+    }
+    return orElse();
+  }
 
   @override
   Map<String, dynamic> toJson() {

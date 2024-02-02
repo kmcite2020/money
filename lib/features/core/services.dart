@@ -45,7 +45,6 @@ extension WidgetExtensions on Widget {
   Widget pad({
     EdgeInsetsGeometry? customPadding,
   }) {
-    final padding = settingsManager.settings.padding;
     return Padding(
       padding: customPadding ?? EdgeInsets.all(padding),
       child: this,

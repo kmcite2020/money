@@ -1,7 +1,46 @@
 import '../../main.dart';
 
-part 'models.g.dart';
-part 'models.freezed.dart';
+part 'settings.g.dart';
+part 'settings.freezed.dart';
+
+final settingsRM = RM.inject(
+  () => Settings(),
+  persist: () => PersistState(
+    key: 'settings',
+    fromJson: (json) => Settings.fromJson(jsonDecode(json)),
+    toJson: (state) => jsonEncode(state.toJson()),
+  ),
+);
+
+Settings get settings => settingsRM.state;
+set settings(Settings settings) => settingsRM.state = settings;
+
+ThemeMode get themeMode => settings.themeMode;
+set themeMode(themeMode) => settings = settings.copyWith(
+      themeMode: themeMode,
+    );
+MaterialColor get materialColor => settings.materialColor;
+set materialColor(materialColor) =>
+    settings = settings.copyWith(materialColor: materialColor);
+bool get useMaterial3 => settings.useMaterial3;
+set useMaterial3(_) => settings = settings.copyWith(useMaterial3: _);
+
+Uint8List? get backgroundImage => settings.backgroundImage;
+set backgroundImagePath(String backgroundImagePath) =>
+    settings = settings.copyWith(
+      backgroundImagePath: backgroundImagePath,
+    );
+double get padding => settings.padding;
+PaddingEnum get paddingEnum => settings.paddingEnum;
+set paddingEnum(_) => settings = settings.copyWith(paddingEnum: _);
+
+double get borderRadius => settings.borderRadius;
+BorderRadiusEnum get borderRadiusEnum => settings.borderRadiusEnum;
+set borderRadiusEnum(_) => settings = settings.copyWith(borderRadiusEnum: _);
+
+get font => settings.font;
+set font(_) => settings = settings.copyWith(font: _);
+void resetSettings() => settings = Settings();
 
 enum BorderRadiusEnum {
   none,
@@ -20,7 +59,7 @@ enum PaddingEnum {
 
 @freezed
 class Settings with _$Settings {
-  const factory Settings({
+  const factory Settings.get({
     required final ThemeMode themeMode,
     @MaterialColorConverter() required final MaterialColor materialColor,
     required final int pageIndex,
@@ -32,7 +71,7 @@ class Settings with _$Settings {
   }) = _Settings;
 
   factory Settings.fromJson(json) => _$SettingsFromJson(json);
-  factory Settings.init() => Settings(
+  factory Settings() => Settings.get(
         themeMode: ThemeMode.system,
         materialColor: Colors.blue,
         pageIndex: 0,
@@ -45,7 +84,7 @@ class Settings with _$Settings {
 
   Uint8List? get backgroundImage {
     try {
-      File file = File(backgroundImagePath!);
+      File file = File(this.backgroundImagePath!);
       return file.readAsBytesSync();
     } catch (e) {
       return null;

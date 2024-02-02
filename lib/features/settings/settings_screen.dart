@@ -1,6 +1,6 @@
 import '../../main.dart';
 
-class SettingsPage extends UI {
+class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
   @override
@@ -14,11 +14,11 @@ class SettingsPage extends UI {
           SwitchListTile(
             title: 'Material 3'.text(),
             subtitle: 'Enable Material 3 Support'.text(),
-            value: settingsManager.settings.useMaterial3,
-            onChanged: settingsManager.onUseMaterial3Changed,
+            value: useMaterial3,
+            onChanged: (_) => useMaterial3 = _,
           ).pad(),
           DropdownButtonFormField(
-            value: settingsManager.settings.themeMode,
+            value: themeMode,
             items: ThemeMode.values.map(
               (eachThemeMode) {
                 return DropdownMenuItem(
@@ -27,11 +27,11 @@ class SettingsPage extends UI {
                 );
               },
             ).toList(),
-            onChanged: settingsManager.setThemeMode,
+            onChanged: (_) => themeMode = _,
             decoration: const InputDecoration(labelText: 'Theme Mode'),
           ).pad(),
           DropdownButtonFormField(
-            value: settingsManager.settings.materialColor,
+            value: materialColor,
             items: Colors.primaries
                 .map(
                   (eachMaterialColor) => DropdownMenuItem(
@@ -40,32 +40,30 @@ class SettingsPage extends UI {
                   ),
                 )
                 .toList(),
-            onChanged: settingsManager.onMaterialColorChanged,
+            onChanged: (_) => materialColor = _,
             decoration: const InputDecoration(
               labelText: 'Material Color',
             ),
           ).pad(),
           DropdownButtonFormField(
-            value: settingsManager.settings.font,
-            items: fonts
-                .map(
-                  (eachFont) => DropdownMenuItem(
-                    value: eachFont,
-                    child: eachFont.toString().toUpperCase().text(
-                          style: TextStyle(
-                            fontFamily: fontFamily(eachFont),
-                          ),
+            value: font,
+            items: fonts.map(
+              (eachFont) {
+                return DropdownMenuItem(
+                  value: eachFont,
+                  child: eachFont.toString().toUpperCase().text(
+                        style: TextStyle(
+                          fontFamily: fontFamily(eachFont),
                         ),
-                  ),
-                )
-                .toList(),
-            onChanged: (font) {
-              settingsManager.onFontChanged(font!);
-            },
+                      ),
+                );
+              },
+            ).toList(),
+            onChanged: (_) => font = _,
             decoration: const InputDecoration(labelText: 'Font'),
           ).pad(),
           DropdownButtonFormField(
-            value: settingsManager.settings.paddingEnum,
+            value: settings.paddingEnum,
             items: PaddingEnum.values
                 .map(
                   (eachPaddingEnum) => DropdownMenuItem(
@@ -74,13 +72,11 @@ class SettingsPage extends UI {
                   ),
                 )
                 .toList(),
-            onChanged: (padding) {
-              settingsManager.onPaddingEnumChanged(padding!);
-            },
+            onChanged: (_) => paddingEnum = _,
             decoration: const InputDecoration(labelText: 'Padding'),
           ).pad(),
           DropdownButtonFormField(
-            value: settingsManager.settings.borderRadiusEnum,
+            value: settings.borderRadiusEnum,
             items: BorderRadiusEnum.values
                 .map(
                   (eachBorderRadiusEnum) => DropdownMenuItem(
@@ -89,51 +85,9 @@ class SettingsPage extends UI {
                   ),
                 )
                 .toList(),
-            onChanged: (borderRadius) {
-              settingsManager.onBorderRadiusEnumChanged(borderRadius!);
-            },
-            decoration: const InputDecoration(
-              labelText: 'Border Radius',
-            ),
+            onChanged: (_) => borderRadiusEnum = _,
+            decoration: const InputDecoration(labelText: 'Border Radius'),
           ).pad(),
-          // ElevatedButton(
-          //   onPressed: () async {
-          //     final fpr = await FilePicker.platform.pickFiles();
-          //     if (fpr != null) {
-          //       final image = fpr.files.first;
-          //       final path = image.path;
-          //       if (path != null) {
-          //         settingsManager.onBackgroundImagePathChanged(path);
-          //       }
-          //     }
-          //   },
-          //   child: 'Set Background Image'.text(),
-          // ).pad(),
-          // ElevatedButton(
-          //   onPressed: settingsManager.settings == Settings.init()
-          //       ? null
-          //       : () {
-          //           settingsManager.setDefaults();
-          //         },
-          //   child: 'Delete Configs'.text(),
-          // ).pad(),
-          // ElevatedButton(
-          //   onPressed: settingsManager.settings.backgroundImage == null
-          //       ? null
-          //       : () {
-          //           settingsManager.onBackgroundImagePathChanged('');
-          //         },
-          //   child: 'Clear Image'.text(),
-          // ).pad(),
-          // settingsManager.settings.backgroundImage == null
-          //     ? 'No background imaged selected.'
-          //         .text()
-          //         .pad()
-          //         .center()
-          //         .pad()
-          //         .card()
-          //         .pad()
-          //     : Image.memory(settingsManager.settings.backgroundImage!).pad()
         ],
       ),
     );

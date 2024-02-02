@@ -3,36 +3,40 @@ import '../../../main.dart';
 final themes = Themes();
 
 class Themes {
-  ThemeMode themeMode() {
-    return settingsManager.settings.themeMode;
-  }
-
   ThemeData theme() {
     return FlexThemeData.light(
-      fontFamily: fontFamily(settingsManager.settings.font),
+      fontFamily: fontFamily(font),
       colorScheme: ColorScheme.fromSwatch(
-        primarySwatch: settingsManager.settings.materialColor,
+        primarySwatch: materialColor,
       ),
-      useMaterial3: settingsManager.settings.useMaterial3,
+      useMaterial3: useMaterial3,
       appBarStyle: FlexAppBarStyle.primary,
       subThemesData: FlexSubThemesData(
-        defaultRadius: settingsManager.settings.borderRadius,
+        defaultRadius: borderRadius,
+      ),
+      lightIsWhite: true,
+    ).copyWith(
+      listTileTheme: ListTileThemeData(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
       ),
     );
   }
 
   ThemeData darkTheme() {
     return FlexThemeData.dark(
-      fontFamily: fontFamily(settingsManager.settings.font),
+      fontFamily: fontFamily(font),
       colorScheme: ColorScheme.fromSwatch(
-        primarySwatch: settingsManager.settings.materialColor,
+        primarySwatch: materialColor,
         brightness: Brightness.dark,
       ),
-      useMaterial3: settingsManager.settings.useMaterial3,
+      useMaterial3: useMaterial3,
       appBarStyle: FlexAppBarStyle.primary,
       subThemesData: FlexSubThemesData(
-        defaultRadius: settingsManager.settings.borderRadius,
+        defaultRadius: borderRadius,
       ),
+      darkIsTrueBlack: true,
     );
   }
 }
